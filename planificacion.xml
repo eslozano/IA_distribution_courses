@@ -1,0 +1,763 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Lista de profesores-->
+<Profesores>
+		<Profesor id=1>
+			<nombre>Cristina Abad</nombre>		
+		</Profesor>
+		<Profesor id=2>
+			<nombre>Rafael Ignacio Bonilla Armijos</nombre>		
+		</Profesor>
+		<Profesor id=3>
+			<nombre>Guido Caicedo Rossi </nombre>		
+		</Profesor>
+		<Profesor id=4>
+			<nombre>Katherine Malena Chiluiza Garcia</nombre>		
+		</Profesor>
+		<Profesor id=5>
+			<nombre>Federico Dominguez Bonini</nombre>		
+		</Profesor>
+		<Profesor id=6>
+			<nombre>Vanessa Ivonne Echeverria Barzola</nombre>		
+		</Profesor>
+		<Profesor id=7>
+			<nombre>Cruz Maria Falcones Montesdeoca</nombre>		
+		</Profesor>
+		<Profesor id=8>
+			<nombre>Lenin Eduardo Freire Cobo</nombre>		
+		</Profesor>
+		<Profesor id=9>
+			<nombre>Sixto Ernesto Garcia Aguilar</nombre>		
+		</Profesor>
+		<Profesor id=10>
+			<nombre>Carlos Jordan Villamar</nombre>		
+		</Profesor>
+		<Profesor id=11>
+			<nombre>Carlos Joseph Mera Gómez</nombre>		
+		</Profesor>
+		<Profesor id=12>
+			<nombre>NN.NN</nombre>		
+		</Profesor>
+		<Profesor id=13>
+			<nombre>Carlos Teodoro Monsalve Arteaga</nombre>		
+		</Profesor>
+		<Profesor id=14>
+			<nombre>Indira Nolivos</nombre>		
+		</Profesor>
+		<Profesor id=15>
+			<nombre>Daniel Ochoa</nombre>		
+		</Profesor>
+		<Profesor id=16>
+			<nombre>Jorge Ivan Rodriguez Echeverria</nombre>		
+		</Profesor>
+		<Profesor id=17>
+			<nombre>Ronald Alberto Ponguillo Intriago</nombre>		
+		</Profesor>
+		<Profesor id=18>
+			<nombre>Dennis Romero</nombre>		
+		</Profesor>
+		<Profesor id=19>
+			<nombre>Carmen Vaca Ruiz</nombre>		
+		</Profesor>
+		<Profesor id=20>
+			<nombre>Marisol Villacres</nombre>		
+		</Profesor>
+		<Profesor id=21>
+			<nombre>Monica Villavicencio</nombre>		
+		</Profesor>
+		<Profesor id=22>
+			<nombre>Boris Xavier Vintimilla Burgos</nombre>		
+		</Profesor>
+		<Profesor id=23>
+			<nombre>Colon Enrique Pelaez Jarrin </nombre>		
+		</Profesor>	
+</Profesores>
+<!--Lista de materias -->
+<Materias>
+		<Materia id=1>
+			<nombre>Sistemas Operativos</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>7</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=2>
+			<nombre>Programación Orientada a Objetos</nombre>
+			<cupo>22</cupo>
+			<paralelo>1</paralelo>
+			<semestre>3</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=3>
+			<nombre>Programación Orientada a Objetos</nombre>
+			<cupo>22</cupo>
+			<paralelo>2</paralelo>
+			<semestre>3</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=4>
+			<nombre>Interacción Hombre Máquina</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>8</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=5>
+			<nombre>Métodos de Investigación Aplicados a la Computación</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>6</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=6>
+			<nombre>Matemáticas Discretas</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>4</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=7>
+			<nombre>Redes de Computadores</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>5</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=8>
+			<nombre>Sistemas de Bases de Datos I</nombre>
+			<cupo>25</cupo>
+			<paralelo>1</paralelo>
+			<semestre>6</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=9>
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>1</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=10>
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>2</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=11>
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>3</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=12>
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>4</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=13>
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>5</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=14>
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>6</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=15>
+			<nombre>Fomulación y Evaluación de Proyectos Informáticos</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>9</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=16>
+			<nombre>Sistemas de Información</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>7</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=17>
+			<nombre>Organización y Arquitectura de Computadores</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>6</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=18>
+			<nombre>Análisis de Algoritmos</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>5</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=19>
+			<nombre>Ingeniería de Software II</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>8</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=20>
+			<nombre>Sistemas de Toma de Decisiones</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>8</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=21>
+			<nombre>Estructura de Datos</nombre>
+			<cupo>22</cupo>
+			<paralelo>1</paralelo>
+			<semestre>4</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=22>
+			<nombre>Estructura de Datos</nombre>
+			<cupo>22</cupo>
+			<paralelo>2</paralelo>
+			<semestre>4</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=23>
+			<nombre>Estructura de Datos</nombre>
+			<cupo>22</cupo>
+			<paralelo>3</paralelo>
+			<semestre>4</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=24>
+			<nombre>Inteligencia Artificial</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>8</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=25>
+			<nombre>Desarrollo de Aplicaciones Web</nombre>
+			<cupo>22</cupo>
+			<paralelo>1</paralelo>
+			<semestre>7</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=26>
+			<nombre>Computación y Sociedad</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id=27>
+			<nombre>Ingeniería de Software I</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>7</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id=28>
+			<nombre>Lenguaje de Programación</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>5</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+</Materias>
+<!--Lista de aulas-->
+<Aulas>
+		<Aula id=1>
+			<nombre>Aula1</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=2>
+			<nombre>Aula2</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=3>
+			<nombre>Aula3</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=4>
+			<nombre>Aula4</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=5>
+			<nombre>Aula5</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=6>
+			<nombre>Aula6</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=7>
+			<nombre>Aula7</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=8>
+			<nombre>Aula8</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=9>
+			<nombre>Aula9</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=10>
+			<nombre>Aula10</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=11>
+			<nombre>Aula11</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=12>
+			<nombre>Aula12</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=13>
+			<nombre>Aula13</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=14>
+			<nombre>Aula14</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=15>
+			<nombre>Aula15</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=16>
+			<nombre>Aula16</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=17>
+			<nombre>Aula17</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=18>
+			<nombre>Aula18</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=19>
+			<nombre>Aula19</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=20>
+			<nombre>Aula20</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=21>
+			<nombre>Aula21</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=22>
+			<nombre>Aula22</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=23>
+			<nombre>Aula23</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=24>
+			<nombre>Aula24</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=25>
+			<nombre>Aula25</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id=26>
+			<nombre>Laboratorio1</nombre>
+			<capacidad>25</capacidad>
+			<laboratorio>1</laboratorio>
+		</Aula>
+		<Aula id=27>
+			<nombre>Laboratorio2</nombre>
+			<capacidad>25</capacidad>
+			<laboratorio>1</laboratorio>
+		</Aula>
+		<Aula id=28>
+			<nombre>Laboratorio3</nombre>
+			<capacidad>25</capacidad>
+			<laboratorio>1</laboratorio>
+		</Aula>
+</Aulas>
+<!--Lista de Clases-->
+<Clases>
+		<Clase id=1>
+			<duracion>2</duracion>
+			<materia>1</materia>
+			<profesor>1</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=2>
+			<duracion>2</duracion>
+			<materia>1</materia>
+			<profesor>1</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=3>
+			<duracion>2</duracion>
+			<materia>2</materia>
+			<profesor>2</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=4>
+			<duracion>2</duracion>
+			<materia>2</materia>
+			<profesor>2</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=5>
+			<duracion>2</duracion>
+			<materia>3</materia>
+			<profesor>2</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=6>
+			<duracion>2</duracion>
+			<materia>3</materia>
+			<profesor>2</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		
+		<Clase id=7>
+			<duracion>2</duracion>
+			<materia>4</materia>
+			<profesor>3</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=8>
+			<duracion>2</duracion>
+			<materia>4</materia>
+			<profesor>3</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=9>
+			<duracion>2</duracion>
+			<materia>5</materia>
+			<profesor>4</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=10>
+			<duracion>2</duracion>
+			<materia>5</materia>
+			<profesor>4</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=11>
+			<duracion>2</duracion>
+			<materia>6</materia>
+			<profesor>6</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=12>
+			<duracion>2</duracion>
+			<materia>6</materia>
+			<profesor>6</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=13>
+			<duracion>3</duracion>
+			<materia>8</materia>
+			<profesor>6</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		
+		<Clase id=14>
+			<duracion>2</duracion>
+			<materia>8</materia>
+			<profesor>6</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=15>
+			<duracion>3</duracion>
+			<materia>9</materia>
+			<profesor>7</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=16>
+			<duracion>2</duracion>
+			<materia>9</materia>
+			<profesor>7</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=17>
+			<duracion>4</duracion>
+			<materia>15</materia>
+			<profesor>8</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=18>
+			<duracion>2</duracion>
+			<materia>16</materia>
+			<profesor>8</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=19>
+			<duracion>2</duracion>
+			<materia>16</materia>
+			<profesor>8</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=20>
+			<duracion>2</duracion>
+			<materia>17</materia>
+			<profesor>9</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=21>
+			<duracion>2</duracion>
+			<materia>17</materia>
+			<profesor>9</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=22>
+			<duracion>2</duracion>
+			<materia>18</materia>
+			<profesor>10</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=23>
+			<duracion>2</duracion>
+			<materia>18</materia>
+			<profesor>10</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=24>
+			<duracion>3</duracion>
+			<materia>14</materia>
+			<profesor>7</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=25>
+			<duracion>2</duracion>
+			<materia>14</materia>
+			<profesor>7</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=26>
+			<duracion>3</duracion>
+			<materia>12</materia>
+			<profesor>11</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=27>
+			<duracion>2</duracion>
+			<materia>12</materia>
+			<profesor>11</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=28>
+			<duracion>3</duracion>
+			<materia>13</materia>
+			<profesor>11</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=29>
+			<duracion>2</duracion>
+			<materia>13</materia>
+			<profesor>11</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=30>
+			<duracion>2</duracion>
+			<materia>7</materia>
+			<profesor>12</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=31>
+			<duracion>2</duracion>
+			<materia>7</materia>
+			<profesor>12</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=32>
+			<duracion>3</duracion>
+			<materia>19</materia>
+			<profesor>13</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=33>
+			<duracion>2</duracion>
+			<materia>19</materia>
+			<profesor>13</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=34>
+			<duracion>2</duracion>
+			<materia>20</materia>
+			<profesor>14</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=35>
+			<duracion>2</duracion>
+			<materia>20</materia>
+			<profesor>14</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=36>
+			<duracion>3</duracion>
+			<materia>21</materia>
+			<profesor>15</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=37>
+			<duracion>2</duracion>
+			<materia>21</materia>
+			<profesor>15</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=38>
+			<duracion>2</duracion>
+			<materia>24</materia>
+			<profesor>23</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=39>
+			<duracion>2</duracion>
+			<materia>24</materia>
+			<profesor>23</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=40>
+			<duracion>3</duracion>
+			<materia>25</materia>
+			<profesor>16</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=41>
+			<duracion>2</duracion>
+			<materia>25</materia>
+			<profesor>16</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		
+		<Clase id=42>
+			<duracion>3</duracion>
+			<materia>22</materia>
+			<profesor>16</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=43>
+			<duracion>2</duracion>
+			<materia>22</materia>
+			<profesor>16</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=44>
+			<duracion>3</duracion>
+			<materia>23</materia>
+			<profesor>16</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		
+		<Clase id=45>
+			<duracion>2</duracion>
+			<materia>23</materia>
+			<profesor>16</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=46>
+			<duracion>3</duracion>
+			<materia>11</materia>
+			<profesor>19</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=47>
+			<duracion>2</duracion>
+			<materia>11</materia>
+			<profesor>19</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		
+		<Clase id=48>
+			<duracion>2</duracion>
+			<materia>26</materia>
+			<profesor>20</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=49>
+			<duracion>2</duracion>
+			<materia>26</materia>
+			<profesor>20</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=50>
+			<duracion>3</duracion>
+			<materia>27</materia>
+			<profesor>21</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		<Clase id=51>
+			<duracion>2</duracion>
+			<materia>27</materia>
+			<profesor>21</profesor>
+			<laboratorio>1</laboratorio>
+		</Clase>
+		
+		<Clase id=52>
+			<duracion>2</duracion>
+			<materia>28</materia>
+			<profesor>11</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+		<Clase id=53>
+			<duracion>2</duracion>
+			<materia>28</materia>
+			<profesor>11</profesor>
+			<laboratorio>0</laboratorio>
+		</Clase>
+</Clases>
