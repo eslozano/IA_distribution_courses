@@ -15,7 +15,8 @@ public class Aula {
     private final int capacidad;
     private final Boolean lab;
     
-    public Aula(String nombre,int capacidad,Boolean lab){
+    public Aula(int id,String nombre,int capacidad,Boolean lab){
+        this.id=id;
         this.nombre=nombre;
         this.capacidad=capacidad;
         this.lab=lab;

@@ -1,0 +1,198 @@
+<Materias>
+		<Materia id="1">
+			<nombre>Sistemas Operativos</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>7</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="2">
+			<nombre>Programación Orientada a Objetos</nombre>
+			<cupo>22</cupo>
+			<paralelo>1</paralelo>
+			<semestre>3</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="3">
+			<nombre>Programación Orientada a Objetos</nombre>
+			<cupo>22</cupo>
+			<paralelo>2</paralelo>
+			<semestre>3</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="4">
+			<nombre>Interacción Hombre Máquina</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>8</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="5">
+			<nombre>Métodos de Investigación Aplicados a la Computación</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>6</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="6">
+			<nombre>Matemáticas Discretas</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>4</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="7">
+			<nombre>Redes de Computadores</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>5</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="8">
+			<nombre>Sistemas de Bases de Datos I</nombre>
+			<cupo>25</cupo>
+			<paralelo>1</paralelo>
+			<semestre>6</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="9">
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>1</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="10">
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>2</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="11">
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>3</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="12">
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>4</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="13">
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>5</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="14">
+			<nombre>Fundamentos de Programación</nombre>
+			<cupo>22</cupo>
+			<paralelo>6</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="15">
+			<nombre>Fomulación y Evaluación de Proyectos Informáticos</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>9</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="16">
+			<nombre>Sistemas de Información</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>7</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="17">
+			<nombre>Organización y Arquitectura de Computadores</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>6</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="18">
+			<nombre>Análisis de Algoritmos</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>5</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="19">
+			<nombre>Ingeniería de Software II</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>8</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="20">
+			<nombre>Sistemas de Toma de Decisiones</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>8</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="21">
+			<nombre>Estructura de Datos</nombre>
+			<cupo>22</cupo>
+			<paralelo>1</paralelo>
+			<semestre>4</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="22">
+			<nombre>Estructura de Datos</nombre>
+			<cupo>22</cupo>
+			<paralelo>2</paralelo>
+			<semestre>4</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="23">
+			<nombre>Estructura de Datos</nombre>
+			<cupo>22</cupo>
+			<paralelo>3</paralelo>
+			<semestre>4</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="24">
+			<nombre>Inteligencia Artificial</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>8</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="25">
+			<nombre>Desarrollo de Aplicaciones Web</nombre>
+			<cupo>22</cupo>
+			<paralelo>1</paralelo>
+			<semestre>7</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="26">
+			<nombre>Computación y Sociedad</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>2</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+		<Materia id="27">
+			<nombre>Ingeniería de Software I</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>7</semestre>
+			<horasSemanales>5</horasSemanales>
+		</Materia>
+		<Materia id="28">
+			<nombre>Lenguaje de Programación</nombre>
+			<cupo>35</cupo>
+			<paralelo>1</paralelo>
+			<semestre>5</semestre>
+			<horasSemanales>4</horasSemanales>
+		</Materia>
+</Materias>

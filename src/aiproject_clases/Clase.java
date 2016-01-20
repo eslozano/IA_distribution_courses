@@ -16,7 +16,8 @@ public class Clase {
     private final Profesor profesor;
     private final Boolean lab;
     
-    public Clase(int durac, Materia mat,Profesor prof, Boolean lab ) {
+    public Clase(int id,int durac, Materia mat,Profesor prof, Boolean lab ) {
+        this.id=id;
         this.duracion=durac;
         this.materia = mat;
         this.profesor=prof;

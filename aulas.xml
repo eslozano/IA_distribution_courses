@@ -1,0 +1,143 @@
+<!--Lista de aulas-->
+<Aulas>
+		<Aula id="1">
+			<nombre>Aula1</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="2">
+			<nombre>Aula2</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="3">
+			<nombre>Aula3</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="4">
+			<nombre>Aula4</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="5">
+			<nombre>Aula5</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="6">
+			<nombre>Aula6</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="7">
+			<nombre>Aula7</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="8">
+			<nombre>Aula8</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="9">
+			<nombre>Aula9</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="10">
+			<nombre>Aula10</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="11">
+			<nombre>Aula11</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="12">
+			<nombre>Aula12</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="13">
+			<nombre>Aula13</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="14">
+			<nombre>Aula14</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="15">
+			<nombre>Aula15</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="16">
+			<nombre>Aula16</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="17">
+			<nombre>Aula17</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="18">
+			<nombre>Aula18</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="19">
+			<nombre>Aula19</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="20">
+			<nombre>Aula20</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="21">
+			<nombre>Aula21</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="22">
+			<nombre>Aula22</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="23">
+			<nombre>Aula23</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="24">
+			<nombre>Aula24</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="25">
+			<nombre>Aula25</nombre>
+			<capacidad>40</capacidad>
+			<laboratorio>0</laboratorio>
+		</Aula>
+		<Aula id="26">
+			<nombre>Laboratorio1</nombre>
+			<capacidad>25</capacidad>
+			<laboratorio>1</laboratorio>
+		</Aula>
+		<Aula id="27">
+			<nombre>Laboratorio2</nombre>
+			<capacidad>25</capacidad>
+			<laboratorio>1</laboratorio>
+		</Aula>
+		<Aula id="28">
+			<nombre>Laboratorio3</nombre>
+			<capacidad>25</capacidad>
+			<laboratorio>1</laboratorio>
+		</Aula>
+</Aulas>
