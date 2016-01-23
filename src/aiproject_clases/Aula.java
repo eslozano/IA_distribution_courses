@@ -19,19 +19,22 @@ public class Aula {
     private final Boolean lab;
     private double horasAsignadas = 0.0D;
     
-    private static final double HORAS_DIA = 12;
-    private static final double HORAS_SEMANA = 60;
+    private double HORAS_DIA;
+    private double HORAS_SEMANA;
     
     private final ArrayList<Clase> horasSemana ; //Sera un arraylist de 12 * 5 casillas, 12 horas 5 dias
     //private ArrayList horas ;   
     
-    public Aula(int id,String nombre,int capacidad,Boolean lab){
+    public Aula(int id,String nombre,int capacidad,Boolean lab,double HORAS_DIA,double HORAS_SEMANA){
         this.id=id;
         this.nombre=nombre;
         this.capacidad=capacidad;
         this.lab=lab;
         
         horasSemana = new ArrayList();
+        
+        this.HORAS_DIA=HORAS_DIA;
+        this.HORAS_SEMANA=HORAS_SEMANA;
         
         inicializarHorasSemana();
     }

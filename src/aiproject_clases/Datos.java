@@ -143,7 +143,7 @@ public class Datos {
         }
         
     }
-    public void cargarAulas() throws ParserConfigurationException, SAXException, IOException{          
+    public void cargarAulas(double HORAS_DIA,double HORAS_SEMANA) throws ParserConfigurationException, SAXException, IOException{          
          // Implementación DOM por defecto de Java  
          // Construimos nuestro DocumentBuilder  
          DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();  
@@ -175,7 +175,7 @@ public class Datos {
             int capacidad=Integer.parseInt(lista_contenido.get(3));
             boolean laboratorio=Boolean.parseBoolean(lista_contenido.get(5));
             
-            Aula aul= new Aula(id,nombre,capacidad,laboratorio);
+            Aula aul= new Aula(id,nombre,capacidad,laboratorio,HORAS_DIA,HORAS_SEMANA);
             aulas.add(aul);
             lista_contenido.clear();
             
