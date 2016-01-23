@@ -52,7 +52,7 @@ public class Materia {
       
     @Override
     public String toString() {
-        return "Materia:" + this.id + "-"+this.nombre + ","
+        return "ID:" + this.id + " Nombre:"+this.nombre + ","
                 +" Cupo:" + this.cupo+","
                 +" Paralelo:" + this.paralelo+","
                 +" Semestre:" + this.semestre+","

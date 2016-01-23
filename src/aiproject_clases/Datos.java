@@ -28,10 +28,26 @@ import org.xml.sax.SAXException;
  * @author Henry
  */
 public class Datos {
-    ArrayList<Profesor>profesores;
-    ArrayList<Materia>materias;
-    ArrayList<Aula>aulas;
-    ArrayList<Clase>clases;
+    private final ArrayList<Profesor>profesores;
+    private final ArrayList<Materia>materias;
+    private final ArrayList<Aula>aulas;
+    private final ArrayList<Clase>clases;
+
+    public ArrayList<Profesor> getProfesores() {
+        return profesores;
+    }
+
+    public ArrayList<Materia> getMaterias() {
+        return materias;
+    }
+
+    public ArrayList<Aula> getAulas() {
+        return aulas;
+    }
+
+    public ArrayList<Clase> getClases() {
+        return clases;
+    }
     
 
     public Datos() {
@@ -73,7 +89,8 @@ public class Datos {
         Iterator<Profesor> nIterator= profesores.iterator();
         while(nIterator.hasNext()){
             Profesor elemento=nIterator.next();
-            System.out.println("ID:"+elemento.getid()+"Nombre:"+elemento.getNombre());
+            System.out.println(elemento.toString());
+            //System.out.println("ID:"+elemento.getid()+" Nombre:"+elemento.getNombre());
         }
         
     }
@@ -102,11 +119,11 @@ public class Datos {
             for(int j=0;j<informacion.getLength();j++){
                 Node contenido= informacion.item(j);
                 String dato=contenido.getTextContent();
-                System.out.println(dato);
+                //System.out.println(dato);
                 lista_contenido.add(dato);    
             }
             String nombre=lista_contenido.get(1);
-            System.out.println(nombre);
+            //System.out.println(nombre);
            
             int cupo=Integer.parseInt(lista_contenido.get(3));
             int paralelo=Integer.parseInt(lista_contenido.get(5));
@@ -121,7 +138,8 @@ public class Datos {
         Iterator<Materia> nIterator= materias.iterator();
         while(nIterator.hasNext()){
             Materia elemento=nIterator.next();
-            System.out.println("ID:"+elemento.getId()+"Nombre:"+elemento.getNombre()+"Cupo:"+elemento.getCupo());
+            System.out.println(elemento.toString());
+            //System.out.println("ID:"+elemento.getId()+" Nombre:"+elemento.getNombre()+" Cupo:"+elemento.getCupo());
         }
         
     }
@@ -165,7 +183,8 @@ public class Datos {
         Iterator<Aula> nIterator= aulas.iterator();
         while(nIterator.hasNext()){
             Aula elemento=nIterator.next();
-            System.out.println("ID:"+elemento.getId()+"Nombre:"+elemento.getNombre()+"Capacidad:"+elemento.getCapacidad());
+            System.out.println(elemento.toString());
+            //System.out.println("ID:"+elemento.getId()+" Nombre:"+elemento.getNombre()+" Capacidad:"+elemento.getCapacidad());
         }
     }
     public void cargarClases() throws ParserConfigurationException, SAXException, IOException{          
@@ -210,7 +229,9 @@ public class Datos {
         Iterator<Clase> nIterator= clases.iterator();
         while(nIterator.hasNext()){
             Clase elemento=nIterator.next();
-            System.out.println("ID:"+elemento.getId()+"Duracion:"+elemento.getDuracion()+"Materia:"+elemento.getMateria().getId()+"Profesor:"+elemento.getProfesor().getid());
+            System.out.println(elemento.toString());
+            //elemento.toString();
+            //System.out.println("ID:"+elemento.getId()+" Duracion:"+elemento.getDuracion()+" Materia:"+elemento.getMateria().getId()+" Profesor:"+elemento.getProfesor().getid());
         }
     }
 }  

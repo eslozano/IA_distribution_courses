@@ -18,12 +18,18 @@ public class Profesor {
         this.nombre=nombre;
     }
     
-    public int getid(){
+    public int getId(){
         return id;
     }
     
     public String getNombre(){
         return nombre;
     }  
+
+    @Override
+    public String toString() {
+        return "ID:" + this.id + " Nombre:"+this.nombre;
+        //return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

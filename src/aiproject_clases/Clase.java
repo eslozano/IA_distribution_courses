@@ -51,8 +51,8 @@ public class Clase {
     @Override
     public String toString() {
         return "Clase:" + this.getId() + ","
-                + " Materia:" + this.materia.getNombre() + ","
-                + " Profesor:" + this.profesor.getNombre() + ","
+                + " Materia:" + this.materia.getId() + ","
+                + " Profesor:" + this.profesor.getId() + ","
                 + " Laboratorio:" + this.lab + ","
                 + " Duracion :" + this.duracion + " horas.";
     }
