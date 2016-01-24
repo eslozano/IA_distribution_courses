@@ -34,7 +34,7 @@ public class AIProject_Genetic_Algorithms {
     //private static final Logger LOG = Logger.getLogger(AIProject_Genetic_Algorithms.class);
     private static final int NUMERO_EVOLUCIONES = 5000;
     // El tamaño de la poblaion (numero de cromosomas en el genotipo)    
-    private static final int TAMANIO_POBLACION = 3;
+    private static final int TAMANIO_POBLACION = 5;
     
     // Los dias de la semana, y el total de horas diarias
     private static final double DIAS_SEMANA = 5;
@@ -84,6 +84,7 @@ public class AIProject_Genetic_Algorithms {
 
         // Only use the swapping operator. Other operations makes no sense here
         // and the size of the chromosome must remain constant
+        //Examples of genetic operators are reproduction, crossover, and mutation.
         gaConf.getGeneticOperators().clear();
         SwappingMutationOperator swapper = new SwappingMutationOperator(gaConf);
         gaConf.addGeneticOperator(swapper);
@@ -105,6 +106,9 @@ public class AIProject_Genetic_Algorithms {
         CalculateAptitudeSchedule fitnessFunction = new CalculateAptitudeSchedule();
         fitnessFunction.setDatos(this.d);
         fitnessFunction.setHorasSemanas(HORAS_SEMANA_AULA);
+        fitnessFunction.setdiasSemana(DIAS_SEMANA);
+        fitnessFunction.setHorasDia(HORAS_DIA);
+        fitnessFunction.setTamCrom(TOTAL_HORAS);
         gaConf.setFitnessFunction(fitnessFunction);
 
         // Because the IntegerGenes are initialized randomly, it is neccesary to set the values to the index. Values range from 0..boxes.length
@@ -138,35 +142,41 @@ public class AIProject_Genetic_Algorithms {
      }
     
      private void evolve(Genotype a_genotype) {
+        //int horasTotales=calcularHorasTodasClases();
+        int valorFitness=1;
         
-        int horasTotales=calcularHorasTodasClases();
-        //System.out.println("HorasTotales:"+horasTotales);
-        int numeroOptimoAulas = (int) Math.ceil(horasTotales / HORAS_SEMANA_AULA);
-        System.out.println("NumeroOptimo:"+numeroOptimoAulas);
+        System.out.println("NumeroOptimo:"+valorFitness);
         
         double previousFittest = a_genotype.getFittestChromosome().getFitnessValue();
         
         for (int i = 0; i < NUMERO_EVOLUCIONES; i++) {
                 if (i % 250 == 0) {
+                      System.out.println("Number of evolutions [" + i + "]");
+                      System.out.println("Valor fitness[" + previousFittest + "]");
                       
+                      /*
+                      
+                      List chromosomes = a_genotype.getPopulation().getChromosomes();
+
+                        for (Object chromosome : chromosomes) {
+                            IChromosome chrom = (IChromosome) chromosome;
+                            System.out.println("crom");
+                            for (int j = 750; j < 800; j++) {
+                                System.out.print("pos:"+j+" alelo:"+chrom.getGene(j).getAllele());
+                            }
+                        }
+                      */
                 }
                 a_genotype.evolve();
                 double fittness = a_genotype.getFittestChromosome().getFitnessValue();
-               /*
-                int vansNeeded = this.numberOfVansNeeded(a_genotype.getFittestChromosome().getGenes()).size();
-                if (fittness < previousFittest && vansNeeded < numberOfVansNeeded) {
-                        this.printSolution(a_genotype.getFittestChromosome());
-                        previousFittest = fittness;
-                        numberOfVansNeeded = vansNeeded;
+                if (fittness > previousFittest ) {
+                    previousFittest = fittness;
                 }
-
                 // No more optimal solutions
-                if (numberOfVansNeeded == optimalNumberOfVans) {
+                if (valorFitness == fittness) {
                         break;
-                }*/
-        }
-        
-        
+                }
+        }       
         
      }
      
