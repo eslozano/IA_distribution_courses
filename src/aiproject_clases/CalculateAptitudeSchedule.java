@@ -204,11 +204,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     }
     public int verificarAula(int index,Clase claseactual){
         int aula=index/60;
-        String laboratorio="0";
-        if (aula>25){
-            laboratorio="1";
-        }
-        if(claseactual.getLab() == Boolean.parseBoolean(laboratorio)){
+        if(claseactual.getLab() == d.getAulas().get(aula).getLab()){
             return 1;
         }else{
             return 0;
