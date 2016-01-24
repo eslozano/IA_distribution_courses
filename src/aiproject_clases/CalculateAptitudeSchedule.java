@@ -5,6 +5,7 @@
  */
 package aiproject_clases;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
@@ -61,8 +62,8 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                     if(claseActual.getId()==(Integer) ic.getGene(i).getAllele()){
                         
                         puntuacionCromosoma+=(verificarDuracion(ic,i,claseActual)+
-                                verificarMateriaDia(ic,i,claseActual)+
-                                verificarProfesorHora(ic,i,claseActual));
+                                verificarMateriaDia(ic,i,claseActual)/*+
+                                verificarProfesorHora(ic,i,claseActual)*/);
                         break;
                     }
                 }
@@ -109,10 +110,10 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         do{
             //Tengo que encontrar la posicion del dia a comparar en todas las aulas
             //Ejemplo diaActual=3;HORAS_DIA=12;indexAula=180(aula3); entonces posicionDia=3*12+180= 216(indice en el cromosoma)
-            int posicionDia=(diaActual*(int)HORAS_DIA)+indexAula;
+            int indexDia=(diaActual*(int)HORAS_DIA)+indexAula;
             for(int hora=0;hora<HORAS_DIA;hora++){
                  //obtengo el alelo de ese aula,dia y hora
-                int id=(Integer)ic.getGene(posicionDia+hora).getAllele();
+                int id=(Integer)ic.getGene(indexDia+hora).getAllele();
                 //si encuentro un id en el gen y ese gen es diferente al id de la clase actual entro
                 if(id!=0 && id!=claseactual.getId()){
                     //Recorrer la lista de clases para poder obtener la materia
@@ -126,6 +127,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                            if(c.getMateria().getId()==claseactual.getMateria().getId()){
                                 return 0;   
                            }
+                           
                        }
                     }
                 }
@@ -149,37 +151,54 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         int diaActual=(index%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
         int horaActual=(index%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA;
         
-        /*
-        if(index+claseactual.getDuracion()>TAM_CROMOSOME){
-            return 0;
-        }*/
+        ArrayList<Integer> horasClaseActual=new ArrayList();
         
-        for(int aula=0;aula<(d.getAulas().size()+HORAS_SEMANA_AULA);aula++){
+        for(int i=0;i<claseactual.getDuracion();i++){
+            //Tengo que impedir que se salga del tamaño del cromosoma
+             if(index<TAM_CROMOSOME){
+                 //Esto tiene la poscion de la hora por ejemplo 5,6,7 si es una clase de 3 horas que comienza a la hora 5
+                 horasClaseActual.add(horaActual);  
+                 horaActual++;                 
+                 index++;
+             }                
+        }
+        
+        int indexAula=0;
+        int indexHora=0;
+        do{
             
-            //Tengo que encontrar la posicion del dia a comparar en todas las aulas
-            //Ejemplo diaActual=3;HORAS_DIA=12;aula=0; entonces posicionDia=3*12+0=36 (indice en el cromosoma)
-            int posicionDia=(diaActual*(int)HORAS_DIA)+aula;
-            
-            for(int hora=0;hora<HORAS_DIA;hora++){
-                //obtengo el alelo de ese dia, aula y hora
-                int id=(Integer)ic.getGene(posicionDia+hora).getAllele();
-                //si encuentro un id en el gen y ese gen es diferente al id de la clase actual entro
+            int indexDia=(diaActual*(int)HORAS_DIA)+indexAula;
+            for (int hora : horasClaseActual) {
+                indexHora=indexAula+indexDia+hora;       
+                int id=(Integer)ic.getGene(indexHora).getAllele();
                 if(id!=0 && id!=claseactual.getId()){
+                    
                     Iterator<Clase> nIterator= d.getClases().iterator();
                     while(nIterator.hasNext()){
-                       Clase elemento=nIterator.next();
+                       Clase c=nIterator.next();
                        //Cuando encuentro la clase que busco con el id del allelo
-                       if(elemento.getId()==id){
+                       if(c.getId()==id){
                            //si el id de la materia de la clase es el mismo id de la materia de la clase actual retorno cero
                            //Quiere decir que en un mismo dia hay dos clases que estan dictando la misma materia
-                           if(elemento.getMateria().getId()==claseactual.getMateria().getId()){
+                           if(c.getProfesor().getId()==claseactual.getProfesor().getId()){
                                 return 0;   
                            }
                        }
-                    }
-                }  
-            }       
-        }        
+                    }   
+                }
+                else{
+                    
+                }
+                
+            }
+            
+            
+           
+            
+            
+            indexAula+=HORAS_SEMANA_AULA;
+        }while(indexAula<(d.getAulas().size()*HORAS_SEMANA_AULA));
+       
         return 1;
         
     }

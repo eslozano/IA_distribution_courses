@@ -36,31 +36,11 @@
 			<laboratorio>0</laboratorio>
 		</Aula>
 		<Aula id="8">
-			<nombre>Aula8</nombre>
-			<capacidad>40</capacidad>
-			<laboratorio>0</laboratorio>
-		</Aula>
-		<Aula id="9">
-			<nombre>Aula9</nombre>
-			<capacidad>40</capacidad>
-			<laboratorio>0</laboratorio>
-		</Aula>
-		<Aula id="10">
-			<nombre>Aula10</nombre>
-			<capacidad>40</capacidad>
-			<laboratorio>0</laboratorio>
-		</Aula>
-		<Aula id="11">
-			<nombre>Laboratorio1</nombre>
-			<capacidad>25</capacidad>
-			<laboratorio>1</laboratorio>
-		</Aula>
-		<Aula id="12">
 			<nombre>Laboratorio2</nombre>
 			<capacidad>25</capacidad>
 			<laboratorio>1</laboratorio>
 		</Aula>
-		<Aula id="13">
+		<Aula id="9">
 			<nombre>Laboratorio3</nombre>
 			<capacidad>25</capacidad>
 			<laboratorio>1</laboratorio>

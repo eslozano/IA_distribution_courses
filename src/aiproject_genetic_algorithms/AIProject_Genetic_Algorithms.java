@@ -34,7 +34,7 @@ public class AIProject_Genetic_Algorithms {
     //private static final Logger LOG = Logger.getLogger(AIProject_Genetic_Algorithms.class);
     private static final int NUMERO_EVOLUCIONES = 5000;
     // El tamaño de la poblaion (numero de cromosomas en el genotipo)    
-    private static final int TAMANIO_POBLACION = 5;
+    private static final int TAMANIO_POBLACION = 25;
     
     // Los dias de la semana, y el total de horas diarias
     private static final double DIAS_SEMANA = 5;
@@ -77,7 +77,12 @@ public class AIProject_Genetic_Algorithms {
     }
     
      private Genotype configureJGAP() throws InvalidConfigurationException {
-       Configuration gaConf = new DefaultConfiguration();
+       
+         Configuration gaConf = new DefaultConfiguration();
+                 
+         
+         /*
+         
         // Here we specify a fitness evaluator where lower values means a better fitness
         Configuration.resetProperty(Configuration.PROPERTY_FITEVAL_INST);
         gaConf.setFitnessEvaluator(new DeltaFitnessEvaluator());
@@ -92,6 +97,8 @@ public class AIProject_Genetic_Algorithms {
         // We are only interested in the most fittest individual
         gaConf.setPreservFittestIndividual(true);
         gaConf.setKeepPopulationSizeConstant(false);
+        
+        */
 
         gaConf.setPopulationSize(TAMANIO_POBLACION);
         // The number of chromosomes is the number of boxes we have. 
@@ -150,34 +157,62 @@ public class AIProject_Genetic_Algorithms {
         double previousFittest = a_genotype.getFittestChromosome().getFitnessValue();
         
         for (int i = 0; i < NUMERO_EVOLUCIONES; i++) {
-                if (i % 250 == 0) {
-                      System.out.println("Number of evolutions [" + i + "]");
-                      System.out.println("Valor fitness[" + previousFittest + "]");
-                      
-                      /*
-                      
-                      List chromosomes = a_genotype.getPopulation().getChromosomes();
+            /*
+             if (i % 250 == 0) {
+                     System.out.println("Number of evolutions [" + i + "]");
+                     System.out.println("Valor fitness[" + previousFittest + "]");
+             }
+             */
 
-                        for (Object chromosome : chromosomes) {
-                            IChromosome chrom = (IChromosome) chromosome;
-                            System.out.println("crom");
-                            for (int j = 750; j < 800; j++) {
-                                System.out.print("pos:"+j+" alelo:"+chrom.getGene(j).getAllele());
-                            }
-                        }
-                      */
-                }
-                a_genotype.evolve();
-                double fittness = a_genotype.getFittestChromosome().getFitnessValue();
-                if (fittness > previousFittest ) {
-                    previousFittest = fittness;
-                }
-                // No more optimal solutions
-                if (valorFitness == fittness) {
-                        break;
-                }
+           System.out.println("Number of evolutions [" + i + "]");
+           System.out.println("Valor fitness[" + previousFittest + "]");
+
+            a_genotype.evolve();
+            double fittness = a_genotype.getFittestChromosome().getFitnessValue();
+            //System.out.println("Valor nuevo fitness[" + fittness + "]");
+            if (fittness > previousFittest ) {
+                this.printFittest(a_genotype.getFittestChromosome());
+                previousFittest = fittness;
+            }
+            // No more optimal solutions
+            if (valorFitness < fittness) {
+                    break;
+            }
         }       
-        
+        IChromosome fittest = a_genotype.getFittestChromosome();
+        this.printSolution(fittest);        
+     }
+     
+     private void printFittest(IChromosome fittest) {
+        Gene[] genes = fittest.getGenes();
+        System.out.println("Fitness value [" + fittest.getFitnessValue() + "]");
+		
+     }
+     
+     private void printSolution(IChromosome fittest) {
+        int aula=0, aulaAnterior=0, dia=0,hora=0;
+        for(int index=0;index<TOTAL_HORAS;index++){            
+            int clase=(int)fittest.getGene(index).getAllele();
+            
+            Iterator<Clase> nIterator= d.getClases().iterator();
+            while(nIterator.hasNext()){
+               Clase c=nIterator.next();
+               //Cuando encuentro la clase que busco con el id del allelo
+               aula=index/(int)HORAS_SEMANA_AULA;
+               if(c.getId()==clase){
+                   if(clase!=0){
+                       
+                        dia=(index%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
+                        hora=(index%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA;
+                        System.out.print(" Clase[" + clase+"-"+c.getDuracion() + "] Aula["+aula+"] Dia["+dia+"] Hora["+hora+"] //");
+                    }
+               }
+               if(aulaAnterior != aula){
+                   System.out.println();
+               }
+               aulaAnterior=aula;
+            }
+        }        
      }
      
     
