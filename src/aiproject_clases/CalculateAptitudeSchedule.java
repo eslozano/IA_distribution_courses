@@ -192,10 +192,6 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                 
             }
             
-            
-           
-            
-            
             indexAula+=HORAS_SEMANA_AULA;
         }while(indexAula<(d.getAulas().size()*HORAS_SEMANA_AULA));
        
@@ -204,7 +200,9 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     }
     public int verificarAula(int index,Clase claseactual){
         int aula=index/60;
-        if(claseactual.getLab() == d.getAulas().get(aula).getLab()){
+        if(claseactual.getLab() && d.getAulas().get(aula).getLab()){
+            return 1;
+        }else if (!(claseactual.getLab() || d.getAulas().get(aula).getLab())){
             return 1;
         }else{
             return 0;
@@ -226,13 +224,16 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     }
     
     public int verificarClaseEspacio(IChromosome ic,int index,Clase claseactual){
-        int numero_espacios=0;
+        int posicion_inicial=(int)(index+claseactual.getDuracion());
+        
         if(index+claseactual.getDuracion()>TAM_CROMOSOME){
             return 0;
         }
-        
-        return 1;
+        if((int)ic.getGene(posicion_inicial).getAllele()!=0){
+                return 1;
+            }else{
+                return 0;
+            }
     }
     
-     
 }
