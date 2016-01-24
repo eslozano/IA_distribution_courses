@@ -183,5 +183,41 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         return 1;
         
     }
+    public int verificarAula(int index,Clase claseactual){
+        int aula=index/60;
+        String laboratorio="0";
+        if (aula>25){
+            laboratorio="1";
+        }
+        if(claseactual.getLab() == Boolean.parseBoolean(laboratorio)){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    public int verificarClaseDia(int index,Clase claseactual){
+        int diaPrimeraHora=(index%60)/12;
+        
+        if(index+claseactual.getDuracion()>TAM_CROMOSOME){
+            return 0;
+        }
+        int diaUltimaHora=(int)((index+(claseactual.getDuracion()))%60)/12;
+        
+        if(diaPrimeraHora==diaUltimaHora){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
     
+    public int verificarClaseEspacio(IChromosome ic,int index,Clase claseactual){
+        int numero_espacios=0;
+        if(index+claseactual.getDuracion()>TAM_CROMOSOME){
+            return 0;
+        }
+        
+        return 1;
+    }
+    
+     
 }
