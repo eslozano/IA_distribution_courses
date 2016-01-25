@@ -5,6 +5,7 @@
  */
 package aiproject_clases;
 
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,10 +36,17 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     Map<Clase,Integer>nivel9= new HashMap<Clase,Integer>();
     Map<Clase,Integer>Mapclases= new HashMap<Clase,Integer>();
         
-
+    
+    Boolean[] clasesEncontradas;
+    
+    
 
     public void setDatos(Datos d) {
         this.d = d;
+        clasesEncontradas= new Boolean[this.d.getClases().size()];
+        for(int i=0; i<clasesEncontradas.length; i++){
+            clasesEncontradas[i]=false;
+        }
     }
     
     public void setHorasSemanas(double HORAS_SEMANA_AULA){
@@ -61,6 +69,8 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     protected double evaluate(IChromosome ic) {
         double puntuacionCromosoma=0;
         double fitnnessValueChromosoma=0;
+        
+        
         /*
         int index=1679;int aula=index/60;int dia=(index%60)/12;int hora=(index%60)%12;
         */
@@ -71,17 +81,43 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             if(idClase!=0){
                 Clase claseActual=d.getClase(idClase);
                 if(claseActual!=null){
-                    puntuacionCromosoma+=(verificarClaseNoRepetida(ic,index,claseActual));
-                    puntuacionCromosoma+=(verificarDuracion(ic,index,claseActual));
+                    clasesEncontradas[idClase-1]=true;
+                    puntuacionCromosoma+=(verificarClaseNoRepetida(ic,index,claseActual));//4
+                    puntuacionCromosoma+=(verificarDuracion(ic,index,claseActual));//3
+                    puntuacionCromosoma+=(verificarClaseDia(index,claseActual));//3
+                    puntuacionCromosoma+=(verificarMateriaDia(ic,index,claseActual));//3
                 } 
             }
             index++;            
         }
-        //Como se implementarion 7 validaciones(puntos-score) posibles. Se tiene que multiplicar el numero de clases *7
-        fitnnessValueChromosoma= puntuacionCromosoma/((d.getClases().size()*4)+(d.getClases().size()*3));
+        puntuacionCromosoma+=(verificarExistenTodasLasClases());//4
+        for(int i=0; i<clasesEncontradas.length; i++){
+            clasesEncontradas[i]=false;
+        }
+        
+        fitnnessValueChromosoma= puntuacionCromosoma/((d.getClases().size()*8)+(d.getClases().size()*9));
         return fitnnessValueChromosoma;
     }
-    
+    /*
+    Funcion: verificarClaseNoRepetida
+    Retorna: int
+    Descripcion: Esta funcion verifica si una clase no se encuentra repetida en el cromosoma, si no esta repetida retorna 4
+    si no retorna 0
+    */
+    public int verificarClaseNoRepetida(IChromosome ic,int index,Clase claseactual){
+        for(int i=index+1;i<TAM_CROMOSOME;i++){
+            int id=(Integer)ic.getGene(i).getAllele();
+            if(id!=0){
+                Clase claseEncontrada=d.getClase(id);
+                if(claseEncontrada!=null){
+                    if(claseEncontrada.getId()==claseactual.getId()){
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 4;        
+    }
     /*
     Funcion: verificarDuracion
     Retorna: int
@@ -100,66 +136,71 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         return 3;        
     }
     /*
-    Funcion: verificarClaseNoRepetida
+    Funcion: verificarExistenTodasLasClases
     Retorna: int
-    Descripcion: Esta funcion verifica si una clase no se encuentra repetida en el cromosoma, si no esta repetida retorna 2
-    si no retorna 0
+    Descripcion: Esta funcion verifica que todas las clases existan en el cromosoma, retorna como maximo valor 4*numero_de_clases
+    si la clase existe es 4, sino es 0
     */
-    public int verificarClaseNoRepetida(IChromosome ic,int index,Clase claseactual){
-        for(int i=index+1;i<TAM_CROMOSOME;i++){
-            int id=(Integer)ic.getGene(i).getAllele();
-            if(id!=0){
-                Clase claseEncontrada=d.getClase(id);
-                if(claseEncontrada!=null){
-                    if(claseEncontrada.getId()==claseactual.getId()){
-                        return 0;
-                    }
-                }
+    public int verificarExistenTodasLasClases(){
+        int acumulador=0;
+        for(int i=0; i<clasesEncontradas.length; i++){
+            if(clasesEncontradas[i]==true){
+                acumulador+=4;
             }
         }
-        return 4;        
+        return acumulador;        
+    }
+    /*
+    Funcion: verificarClaseDia
+    Retorna: int
+    Descripcion: Esta funcion verifica que el dia de la ultima hora de la clase no sea diferente al dia de la primera hora de la clase.
+    Asegurandonos que una clase no se pueda dividir en dos dias. Retorna 3 si la clase no esta dividida, 0 si lo está
+    */
+    public int verificarClaseDia(int index,Clase claseactual){
+        if(index+claseactual.getDuracion()>TAM_CROMOSOME){
+            return 0;
+        }
+        int diaPrimeraHora=(index%60)/12;
+        int diaUltimaHora=(int)((index+claseactual.getDuracion())%60)/12;
+        if(diaPrimeraHora!=diaUltimaHora){
+            return 0;
+        }
+        return 3;
     }
     /*
     Funcion: verificarMateriaDia
     Retorna: int
     Descripcion: Esta funcion verifica si dos clases de una misma materia no son dictadas el mismo dia en cualquier aula,
-    si son dictadas el mismo dia retorna 0, sino retorna 1
+    si son dictadas el mismo dia retorna 0, sino retorna 2
     */
     public int verificarMateriaDia(IChromosome ic,int index,Clase claseactual){
-        //int aulaActual=index/(int)HORAS_SEMANA_AULA;
+      
+        int aulaActual=(index/(int)HORAS_SEMANA_AULA);
+        int indexAula=aulaActual*60;
         int diaActual=(index%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
-        
-        int indexAula=0;
         do{
             //Tengo que encontrar la posicion del dia a comparar en todas las aulas
             //Ejemplo diaActual=3;HORAS_DIA=12;indexAula=180(aula3); entonces posicionDia=3*12+180= 216(indice en el cromosoma)
-            int indexDia=(diaActual*(int)HORAS_DIA)+indexAula;
+            int indexDiaComparacion=indexAula+(diaActual*(int)HORAS_DIA);
             for(int hora=0;hora<HORAS_DIA;hora++){
                  //obtengo el alelo de ese aula,dia y hora
-                int id=(Integer)ic.getGene(indexDia+hora).getAllele();
+                int id=(Integer)ic.getGene(indexDiaComparacion+hora).getAllele();
                 //si encuentro un id en el gen y ese gen es diferente al id de la clase actual entro
                 if(id!=0 && id!=claseactual.getId()){
                     //Recorrer la lista de clases para poder obtener la materia
-                    Iterator<Clase> nIterator= d.getClases().iterator();
-                    while(nIterator.hasNext()){
-                       Clase c=nIterator.next();
-                       //Cuando encuentro la clase que busco con el id del allelo
-                       if(c.getId()==id){
-                           //si el id de la materia de la clase es el mismo id de la materia de la clase actual retorno cero
-                           //Quiere decir que en un mismo dia hay dos clases que estan dictando la misma materia
-                           if(c.getMateria().getId()==claseactual.getMateria().getId()){
-                                return 0;   
-                           }
-                           
-                       }
+                    Clase clase=d.getClase(id);
+                    if (clase!=null){
+                        //si el id de la materia de la clase es el mismo id de la materia de la clase actual retorno cero
+                        //Quiere decir que en un mismo dia hay dos clases que estan dictando la misma materia
+                        if(clase.getMateria().getId()==claseactual.getMateria().getId()){
+                             return 0;   
+                        }
                     }
                 }
-            
             }
             indexAula+=HORAS_SEMANA_AULA;
         }while(indexAula<(d.getAulas().size()*HORAS_SEMANA_AULA));
-        
-        return 2;
+        return 3;
         
     }
     
@@ -221,6 +262,12 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         return 1;
         
     }
+    
+     
+    
+    
+    
+    
     public int verificarAula(int index,Clase claseactual){
         int aula=index/60;
         if(claseactual.getLab() && d.getAulas().get(aula).getLab()){
@@ -231,20 +278,8 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             return 0;
         }
     }
-    public int verificarClaseDia(int index,Clase claseactual){
-        int diaPrimeraHora=(index%60)/12;
-        
-        if(index+claseactual.getDuracion()>TAM_CROMOSOME){
-            return 0;
-        }
-        int diaUltimaHora=(int)((index+(claseactual.getDuracion()))%60)/12;
-        
-        if(diaPrimeraHora==diaUltimaHora){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
+    
+    
     
     public int verificarClaseEspacio(IChromosome ic,int index,Clase claseactual){
         int posicion_inicial=(int)(index+claseactual.getDuracion());
@@ -397,8 +432,6 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             return 1;
         } 
     }
-    
-  
     
     public void LlenarMapClases(IChromosome ic){
         

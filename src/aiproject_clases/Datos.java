@@ -99,12 +99,14 @@ public class Datos {
             profesores.add(pro);
             lista_contenido.clear();
         }
+        /*
         Iterator<Profesor> nIterator= profesores.iterator();
         while(nIterator.hasNext()){
             Profesor elemento=nIterator.next();
             System.out.println(elemento.toString());
             //System.out.println("ID:"+elemento.getid()+" Nombre:"+elemento.getNombre());
         }
+*/
         
     }
     
@@ -148,13 +150,14 @@ public class Datos {
             lista_contenido.clear();
             
         }
+        /*
         Iterator<Materia> nIterator= materias.iterator();
         while(nIterator.hasNext()){
             Materia elemento=nIterator.next();
             System.out.println(elemento.toString());
             //System.out.println("ID:"+elemento.getId()+" Nombre:"+elemento.getNombre()+" Cupo:"+elemento.getCupo());
         }
-        
+        */
     }
     public void cargarAulas(double HORAS_DIA,double HORAS_SEMANA) throws ParserConfigurationException, SAXException, IOException{          
          // Implementación DOM por defecto de Java  
@@ -193,12 +196,14 @@ public class Datos {
             lista_contenido.clear();
             
         }
+        /*
         Iterator<Aula> nIterator= aulas.iterator();
         while(nIterator.hasNext()){
             Aula elemento=nIterator.next();
             System.out.println(elemento.toString());
             //System.out.println("ID:"+elemento.getId()+" Nombre:"+elemento.getNombre()+" Capacidad:"+elemento.getCapacidad());
         }
+        */
     }
     public void cargarClases() throws ParserConfigurationException, SAXException, IOException{          
          // Implementación DOM por defecto de Java  
@@ -239,6 +244,7 @@ public class Datos {
             lista_contenido.clear();
             
         }
+        /*
         Iterator<Clase> nIterator= clases.iterator();
         while(nIterator.hasNext()){
             Clase elemento=nIterator.next();
@@ -246,5 +252,6 @@ public class Datos {
             //elemento.toString();
             //System.out.println("ID:"+elemento.getId()+" Duracion:"+elemento.getDuracion()+" Materia:"+elemento.getMateria().getId()+" Profesor:"+elemento.getProfesor().getid());
         }
+        */
     }
 }  

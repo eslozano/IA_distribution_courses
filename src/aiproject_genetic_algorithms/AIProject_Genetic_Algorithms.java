@@ -147,23 +147,18 @@ public class AIProject_Genetic_Algorithms {
      }
     
      private void evolve(Genotype a_genotype) {
-        //int horasTotales=calcularHorasTodasClases();
         int valorFitness=1;
-        
         System.out.println("NumeroOptimo:"+valorFitness);
         
         double previousFittest = a_genotype.getFittestChromosome().getFitnessValue();
         
         for (int i = 0; i < NUMERO_EVOLUCIONES; i++) {
-             if (i % 250 == 0) {
-                     System.out.println("Number of evolutions [" + i + "]");
-                     System.out.println("Valor fitness[" + previousFittest + "]");
-             }
+             
             a_genotype.evolve();
-            double fittness = a_genotype.getFittestChromosome().getFitnessValue();
+            double fittness = a_genotype.getFittestChromosome().getFitnessValue();            
             
             if (fittness > previousFittest ) {
-                this.printFittest(a_genotype.getFittestChromosome());
+                this.printFittest(a_genotype.getFittestChromosome(),i);
                 previousFittest = fittness;
             }
             if (fittness>=valorFitness) {
@@ -172,13 +167,13 @@ public class AIProject_Genetic_Algorithms {
         }       
         IChromosome fittest = a_genotype.getFittestChromosome();
         //this.printFittest(fittest);
-        this.printSolution2(fittest);     
+        //this.printSolution2(fittest);     
         this.printSolution(fittest);
      }
      
-     private void printFittest(IChromosome fittest) {
+     private void printFittest(IChromosome fittest,int i) {
         Gene[] genes = fittest.getGenes();
-        System.out.println("Fitness value [" + fittest.getFitnessValue() + "]");
+        System.out.println("Evolution:"+i+" Fitness value [" + fittest.getFitnessValue() + "]");
      }
      
      private void printSolution2(IChromosome fittest) {
@@ -233,23 +228,17 @@ public class AIProject_Genetic_Algorithms {
         for(int index=0;index<TOTAL_HORAS;index++){            
             int clase=(int)fittest.getGene(index).getAllele();
             
-            Iterator<Clase> nIterator= d.getClases().iterator();
-            while(nIterator.hasNext()){
-               Clase c=nIterator.next();
+            Clase c=d.getClase(clase);
+            if(c!=null){
                //Cuando encuentro la clase que busco con el id del allelo
-               aula=index/(int)HORAS_SEMANA_AULA;
-               if(c.getId()==clase){
-                   if(clase!=0){
-                       
-                        dia=(index%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
-                        hora=(index%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA;
-                        System.out.print(" Clase[" + clase+"-"+c.getDuracion() + "] Aula["+aula+"] Dia["+dia+"] Hora["+hora+"] //");
-                    }
-               }
-               if(aulaAnterior != aula){
-                   System.out.println();
-               }
-               aulaAnterior=aula;
+                aula=index/(int)HORAS_SEMANA_AULA;
+                if(aulaAnterior != aula){
+                    System.out.println();
+                }      
+                aulaAnterior=aula;
+                dia=(index%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
+                hora=(index%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA;
+                System.out.print(" Clase[" + clase+"-"+c.getDuracion() + "] Aula["+aula+"] Dia["+dia+"] Hora["+hora+"] //");
             }
         }        
      }
