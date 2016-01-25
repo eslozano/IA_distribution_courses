@@ -8,11 +8,28 @@ package aiproject_genetic_algorithms;
 import aiproject_clases.CalculateAptitudeSchedule;
 import aiproject_clases.Clase;
 import aiproject_clases.Datos;
+import aiproject_clases.MenuActionListener;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.ParserConfigurationException;
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
@@ -62,6 +79,15 @@ public class AIProject_Genetic_Algorithms {
     //Sumatoria total de las horas de todas las clases por asignar
     private double totalHorasClases = 0.0D;
 
+    public static Object[] tablas = new Object[10];
+    public static JFrame principal = new JFrame("Course Distribution");
+    public static Container container = principal.getContentPane();
+    
+    public static JFrame mainFrame = new JFrame("Evolution Progress");
+    public static Box box = Box.createVerticalBox();
+    public static JScrollPane pane = new JScrollPane(box);
+    public static JButton showResults = new JButton("Results");
+    
     public AIProject_Genetic_Algorithms(int seed) throws Exception {
        
         
@@ -140,10 +166,16 @@ public class AIProject_Genetic_Algorithms {
      }
     
      private void evolve(Genotype a_genotype) {
+        
         int valorFitness=1;
         System.out.println("NumeroOptimo:"+valorFitness);
         
         double previousFittest = a_genotype.getFittestChromosome().getFitnessValue();
+        box.setSize(400,700);
+        mainFrame.setSize(400,700);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setVisible(true);
+        mainFrame.add(pane);
         
         for (int i = 0; i < NUMERO_EVOLUCIONES; i++) {
              
@@ -158,17 +190,43 @@ public class AIProject_Genetic_Algorithms {
                     break;
             }
         }       
+        showResults.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                principal.setVisible(true);
+            }
+        });
+        showResults.setAlignmentX(Component.CENTER_ALIGNMENT);
+        box.add(showResults);
+        box.revalidate();
+        
         IChromosome fittest = a_genotype.getFittestChromosome();
-        //this.printFittest(fittest);
         this.printSolution2(fittest);     
         //this.printSolution(fittest);
      }
      
      private void printFittest(IChromosome fittest,int i) {
-        System.out.println("Evolution:"+i+" Fitness value [" + fittest.getFitnessValue() + "]");
+        Gene[] genes = fittest.getGenes();
+        String fittestStr = "\t Evolution:   ["+i+"]    \t     Fitness Value:   [" + fittest.getFitnessValue() + "]";
+        JLabel label = new JLabel(fittestStr);
+        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        box.add(label);
+        System.out.println("Evolution:["+i+"]    \t   Fitness Value: [" + fittest.getFitnessValue() + "]");
+        box.revalidate();
      }
      
-     private void printSolution2(IChromosome fittest) {
+
+     
+    private void printSolution2(IChromosome fittest) {
+         
+        JMenuBar menu = new JMenuBar();
+        JMenu rooms = new JMenu("Rooms");
+        menu.add(rooms);
+        Object days[] = {"Mon", "Tue", "Wed", "Thu", "Fri"};
+        principal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        int tableIndex = 0;
+        
         int gene=0, id=0;
         int [][] aula1Matriz = new int[12][5];
         for (int x=0; x < 12; x++) {
@@ -176,6 +234,7 @@ public class AIProject_Genetic_Algorithms {
               aula1Matriz[x][y]=0;
             }
         }
+        
         while(gene < fittest.size()){
             for(int indicedia=0;indicedia<5;indicedia++){          
                 for(int indicehora=0;indicehora<12;indicehora++){          
@@ -194,23 +253,46 @@ public class AIProject_Genetic_Algorithms {
                     gene++;
                 }
             }
-            System.out.println("");
             System.out.println("AULA:"+(gene-1)/60);
-            System.out.println("\t L\tM\tM\tJ\tV");
-            for (int x=0; x < aula1Matriz.length; x++) {
-               System.out.print("Hora-"+(x+1)+"\t|");
-               for (int y=0; y < aula1Matriz[x].length; y++) {
-                 System.out.print (aula1Matriz[x][y]);
-                 if (y!=aula1Matriz[x].length-1) System.out.print("\t");
-               }
-               System.out.println("|");
-           }
+            JTable table = new JTable();
+            DefaultTableModel model = new DefaultTableModel(days, 0);
+                 for (int x=0; x < aula1Matriz.length; x++) {
+                    //System.out.print("|");
+                    Object [] fila = new Object[5];
+                    for (int y=0; y < aula1Matriz[x].length; y++) {
+                      //System.out.print (aula1Matriz[x][y]);
+                      Clase c=d.getClase(aula1Matriz[x][y]);
+                      if(c!=null){
+                          fila[y] = c.getMateria().getNombre();
+                      }
+                      //if (y!=aula1Matriz[x].length-1) 
+                          //System.out.print("\t");
+                    }
+                    model.addRow(fila); 
+                    //System.out.println("|");
+                }
+            table.setModel(model);
+            tablas[tableIndex] = table;
+            tableIndex++;
+            //System.out.println(gene);
+            
             for (int x=0; x < 12; x++) {
                 for (int y=0; y < 5; y++) {
                   aula1Matriz[x][y]=0;
                 }
             }
-        }     
+ 
+        }
+        
+        for (int i = 0; i < 9; i++){
+            MenuActionListener aux = new MenuActionListener(i);
+            JMenuItem room = new JMenuItem("Room "+(i+1));
+            room.addActionListener(aux);
+            rooms.add(room);
+        }
+        principal.setJMenuBar(menu);
+        principal.setSize(500, 300);
+        principal.setVisible(false);
      }
      
      private void printSolution(IChromosome fittest) {
@@ -232,6 +314,7 @@ public class AIProject_Genetic_Algorithms {
             }
         }        
      }
+     
      
 
     /**

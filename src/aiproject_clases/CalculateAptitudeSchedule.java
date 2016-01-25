@@ -69,7 +69,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         double puntuacionCromosoma=0;
         double fitnnessValueChromosoma=0;
         
-        LlenarMapaClasesNiveles(ic);
+        //LlenarMapaClasesNiveles(ic);
         /*
         int index=1679;int aula=index/60;int dia=(index%60)/12;int hora=(index%60)%12;
         */
@@ -85,7 +85,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                     puntuacionCromosoma+=(verificarDuracion(ic,index,claseActual));//4
                     puntuacionCromosoma+=(verificarClaseDia(index,claseActual));//3
                     puntuacionCromosoma+=(verificarMateriaDia(ic,index,claseActual));//3
-                    puntuacionCromosoma+=(verificarClasesSemestre(ic,claseActual));//3
+                   // puntuacionCromosoma+=(verificarClasesSemestre(ic,claseActual));//3
                 } 
             }
             index++;            
@@ -299,7 +299,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             }
     }
     
-    
+    /*
     
      public int verificarClasesSemestre(IChromosome ic, Clase claseActual){
         int numero_cruces=0;
@@ -328,7 +328,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         } 
     }
     
-    
+    */
     
     public void LlenarMapaClasesNiveles(IChromosome ic){
         for(int i=0;i<TAM_CROMOSOME;i++){
@@ -360,7 +360,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             }
         }
     }
-    
+    /*
     public int recorrerMapaSemestre(Map mapa){
         int hora1temp,hora2temp,hora3temp;
         int cruces=0;
@@ -449,7 +449,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         }
         return cruces;
     }
-    
+    */
    
     
     public void LlenarMapClases(IChromosome ic){
