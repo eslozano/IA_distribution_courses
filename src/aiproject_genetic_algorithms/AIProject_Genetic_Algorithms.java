@@ -154,7 +154,7 @@ public class AIProject_Genetic_Algorithms {
                 this.printFittest(a_genotype.getFittestChromosome(),i);
                 previousFittest = fittness;
             }
-            if (fittness>=valorFitness) {
+            if (fittness>0.99) {
                     break;
             }
         }       

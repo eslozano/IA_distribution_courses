@@ -86,6 +86,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                     puntuacionCromosoma+=(verificarDuracion(ic,index,claseActual));//4
                     puntuacionCromosoma+=(verificarClaseDia(index,claseActual));//3
                     puntuacionCromosoma+=(verificarMateriaDia(ic,index,claseActual));//3
+                    puntuacionCromosoma+=(verificarMateriasSemestre(ic,index,claseActual));//3
                 } 
             }
             index++;            
@@ -95,7 +96,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             clasesEncontradas[i]=false;
         }
         
-        fitnnessValueChromosoma= puntuacionCromosoma/((d.getClases().size()*12)+(d.getClases().size()*6));
+        fitnnessValueChromosoma= puntuacionCromosoma/((d.getClases().size()*12)+(d.getClases().size()*9));
         return fitnnessValueChromosoma;
     }
     /*
@@ -207,6 +208,47 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     }
     
     /*
+    Funcion: verificarMateriasSemestre
+    Retorna: int
+    Descripcion: Esta funcion verifica si para una clase con una materia de un semestre determinado, no se cruza con ninguna
+    clase de una materia con el mismo semestre. Si es el mismo semestre de materias retorna 0, caso contrario retorna 3
+    */
+    public int verificarMateriasSemestre(IChromosome ic,int index, Clase claseActual){
+        if(index+claseActual.getDuracion()>TAM_CROMOSOME){
+            return 0;
+        }
+        int[] horasClaseActual=new int[(int)claseActual.getDuracion()];
+        int horaActualtmp=(index%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA;
+        for(int i=0; i<horasClaseActual.length; i++){
+            horasClaseActual[i]=horaActualtmp;
+            horaActualtmp++;
+        }
+        int aulaActual=(index/(int)HORAS_SEMANA_AULA);
+        int diaActual=(index%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
+        int indexDia=(aulaActual*(int)HORAS_SEMANA_AULA)+(diaActual*(int)HORAS_DIA);
+        do{
+            for(int i=0;i<horasClaseActual.length;i++){
+                int indexComparacion=indexDia+horasClaseActual[i];
+                if(indexComparacion<TAM_CROMOSOME){
+                    int id=(Integer)ic.getGene(indexComparacion).getAllele();
+                    if(id!=0 && id!=claseActual.getId()){
+                        Clase clase=d.getClase(id);
+                        if (clase!=null){
+                            if(clase.getMateria().getSemestre()==claseActual.getMateria().getSemestre()){
+                                 return 0;   
+                            }
+                        }
+                    }
+                }else{
+                    break;
+                }                
+            }
+            indexDia+=HORAS_DIA;
+        }while(indexDia<(TAM_CROMOSOME));
+        return 3;     
+    }
+    
+    /*
     Funcion: verificarProfesorHora
     Retorna: int
     Descripcion: Esta funcion verifica si un profesor tiene dos clases el mismo dia a la misma hora,
@@ -264,7 +306,11 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         return 1;
         
     }
-
+    
+    
+    
+    
+    
     public int verificarAula(int index,Clase claseactual){
         int aula=index/60;
         if(claseactual.getLab() && d.getAulas().get(aula).getLab()){
@@ -290,6 +336,51 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                 return 0;
             }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     public int verificarClasesNiveles(IChromosome ic, Clase claseActual){
+        int numero_cruces=0;
+        LlenarMapaClasesNiveles(ic);
+        
+        if (claseActual.getMateria().getSemestre()==2){
+            numero_cruces=recorrerMapaSemestre(nivel2);
+        }if (claseActual.getMateria().getSemestre()==3){
+            numero_cruces=recorrerMapaSemestre(nivel3);
+        }if (claseActual.getMateria().getSemestre()==4){
+            numero_cruces=recorrerMapaSemestre(nivel4);
+        }if (claseActual.getMateria().getSemestre()==5){
+            numero_cruces=recorrerMapaSemestre(nivel5);
+        }if (claseActual.getMateria().getSemestre()==6){
+            numero_cruces=recorrerMapaSemestre(nivel6);
+        }if (claseActual.getMateria().getSemestre()==7){
+            numero_cruces=recorrerMapaSemestre(nivel7);
+        }if (claseActual.getMateria().getSemestre()==8){
+            numero_cruces=recorrerMapaSemestre(nivel8);
+        }if (claseActual.getMateria().getSemestre()==9){
+            numero_cruces=recorrerMapaSemestre(nivel9);
+        }
+        if(numero_cruces > 0){
+            return 0;
+        }else{
+            return 1;
+        } 
+    }
+    
+    
+    
+
+    
+    
+    
     
     public void LlenarMapaClasesNiveles(IChromosome ic){
         for(int i=0;i<TAM_CROMOSOME;i++){
@@ -402,33 +493,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         return cruces;
     }
     
-    public int verificarClasesNiveles(IChromosome ic, Clase claseActual){
-        int numero_cruces=0;
-        LlenarMapaClasesNiveles(ic);
-        
-        if (claseActual.getMateria().getSemestre()==2){
-            numero_cruces=recorrerMapaSemestre(nivel2);
-        }if (claseActual.getMateria().getSemestre()==3){
-            numero_cruces=recorrerMapaSemestre(nivel3);
-        }if (claseActual.getMateria().getSemestre()==4){
-            numero_cruces=recorrerMapaSemestre(nivel4);
-        }if (claseActual.getMateria().getSemestre()==5){
-            numero_cruces=recorrerMapaSemestre(nivel5);
-        }if (claseActual.getMateria().getSemestre()==6){
-            numero_cruces=recorrerMapaSemestre(nivel6);
-        }if (claseActual.getMateria().getSemestre()==7){
-            numero_cruces=recorrerMapaSemestre(nivel7);
-        }if (claseActual.getMateria().getSemestre()==8){
-            numero_cruces=recorrerMapaSemestre(nivel8);
-        }if (claseActual.getMateria().getSemestre()==9){
-            numero_cruces=recorrerMapaSemestre(nivel9);
-        }
-        if(numero_cruces > 0){
-            return 0;
-        }else{
-            return 1;
-        } 
-    }
+   
     
     public void LlenarMapClases(IChromosome ic){
         
