@@ -6,7 +6,9 @@
 package aiproject_clases;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import org.jgap.FitnessFunction;
 import org.jgap.Gene;
 import org.jgap.IChromosome;
@@ -22,6 +24,18 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     private double DIAS_SEMANA;
     private double HORAS_DIA;
     private double TAM_CROMOSOME;
+    
+    Map<Clase,Integer>nivel2= new HashMap<Clase,Integer>();
+    Map<Clase,Integer>nivel3= new HashMap<Clase,Integer>();
+    Map<Clase,Integer>nivel4= new HashMap<Clase,Integer>();
+    Map<Clase,Integer>nivel5= new HashMap<Clase,Integer>();
+    Map<Clase,Integer>nivel6= new HashMap<Clase,Integer>();
+    Map<Clase,Integer>nivel7= new HashMap<Clase,Integer>();
+    Map<Clase,Integer>nivel8= new HashMap<Clase,Integer>();
+    Map<Clase,Integer>nivel9= new HashMap<Clase,Integer>();
+    Map<Clase,Integer>Mapclases= new HashMap<Clase,Integer>();
+        
+
 
     public void setDatos(Datos d) {
         this.d = d;
@@ -243,6 +257,253 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             }else{
                 return 0;
             }
+    }
+    
+    public void LlenarMapaClasesNiveles(IChromosome ic){
+        for(int i=0;i<TAM_CROMOSOME;i++){
+            if((Integer) ic.getGene(i).getAllele()!=0){
+                Iterator<Clase> nIterator= d.getClases().iterator();
+                while(nIterator.hasNext()){
+                    Clase claseActual=nIterator.next();
+                    if(claseActual.getId()==(Integer) ic.getGene(i).getAllele()){
+                        if(claseActual.getMateria().getSemestre()==2){
+                            nivel2.put(claseActual, i);
+                        }if(claseActual.getMateria().getSemestre()==3){
+                            nivel3.put(claseActual, i);
+                        }if(claseActual.getMateria().getSemestre()==4){
+                            nivel4.put(claseActual, i);
+                        }if(claseActual.getMateria().getSemestre()==5){
+                            nivel5.put(claseActual, i);
+                        }if(claseActual.getMateria().getSemestre()==6){
+                            nivel6.put(claseActual, i);
+                        }if(claseActual.getMateria().getSemestre()==7){
+                            nivel7.put(claseActual, i);
+                        }if(claseActual.getMateria().getSemestre()==8){
+                            nivel8.put(claseActual, i);
+                        }if(claseActual.getMateria().getSemestre()==9){
+                            nivel9.put(claseActual, i);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public int recorrerMapaSemestre(Map mapa){
+        int hora1=-1,hora2=-1,hora3=-1;
+        int hora1temp=-1,hora2temp=-1,hora3temp=-1;
+        int cruces=0;
+        Iterator<Clase> iterador = mapa.keySet().iterator();
+        Iterator<Clase> iterador2 = mapa.keySet().iterator();
+        while(iterador.hasNext()){
+            Clase cla = iterador.next();
+            if(cla.getDuracion()==2){
+                hora1=(int) mapa.get(cla);
+                hora2=(int)mapa.get(cla)+1;
+            }
+            if(cla.getDuracion()==3){
+                hora1=(int) mapa.get(cla);
+                hora2=(int)mapa.get(cla)+1;
+                hora3=(int)mapa.get(cla)+2;
+                
+            }
+            while(iterador2.hasNext()){
+                Clase cla2 = iterador2.next();
+                if(cla2.getId()!=cla.getId()){
+                    
+                    if(cla2.getDuracion()==2 && cla.getDuracion()==2){
+                        hora1temp=(int) mapa.get(cla2);
+                        hora2temp=(int)mapa.get(cla2)+1;
+                        
+                        if(hora1==hora1temp || hora1==hora2temp){
+                            cruces+=1;
+                        }
+                        if(hora2==hora1temp || hora2==hora2temp){
+                            cruces+=1;
+                        }
+                    }
+                    if(cla2.getDuracion()==3 && cla.getDuracion()==3){
+                        hora1temp=(int) mapa.get(cla2);
+                        hora2temp=(int)mapa.get(cla2)+1;
+                        hora3temp=(int)mapa.get(cla2)+2;
+         
+                        if(hora1==hora1temp || hora1==hora2temp || hora1==hora3temp){
+                            cruces+=1;
+                        }
+                        if(hora2==hora1temp || hora2==hora2temp || hora2==hora3temp){
+                            cruces+=1;
+                        }
+                        if(hora3==hora1temp || hora3==hora2temp || hora3==hora3temp){
+                            cruces+=1;
+                        }
+                    }
+                    
+                    if(cla2.getDuracion()==2 && cla.getDuracion()==3){
+                        hora1temp=(int) mapa.get(cla2);
+                        hora2temp=(int)mapa.get(cla2)+1;
+         
+                        if(hora1==hora1temp || hora1==hora2temp ){
+                            cruces+=1;
+                        }
+                        if(hora2==hora1temp || hora2==hora2temp ){
+                            cruces+=1;
+                        }
+                        if(hora3==hora1temp || hora3==hora2temp ){
+                            cruces+=1;
+                        }
+                    }
+                    if(cla2.getDuracion()==3 && cla.getDuracion()==2){
+                        hora1temp=(int) mapa.get(cla2);
+                        hora2temp=(int)mapa.get(cla2)+1;
+                        hora3temp=(int)mapa.get(cla2)+2;
+         
+                        if(hora1==hora1temp || hora1==hora2temp || hora1==hora3temp){
+                            cruces+=1;
+                        }
+                        if(hora2==hora1temp || hora2==hora2temp || hora2==hora3temp){
+                            cruces+=1;
+                        }
+                    }
+                }
+            }   
+        }
+        return cruces;
+    }
+    
+    public int verificarClasesNiveles(IChromosome ic, Clase claseActual){
+        int numero_cruces=0;
+        LlenarMapaClasesNiveles(ic);
+        
+        if (claseActual.getMateria().getSemestre()==2){
+            numero_cruces=recorrerMapaSemestre(nivel2);
+        }if (claseActual.getMateria().getSemestre()==3){
+            numero_cruces=recorrerMapaSemestre(nivel3);
+        }if (claseActual.getMateria().getSemestre()==4){
+            numero_cruces=recorrerMapaSemestre(nivel4);
+        }if (claseActual.getMateria().getSemestre()==5){
+            numero_cruces=recorrerMapaSemestre(nivel5);
+        }if (claseActual.getMateria().getSemestre()==6){
+            numero_cruces=recorrerMapaSemestre(nivel6);
+        }if (claseActual.getMateria().getSemestre()==7){
+            numero_cruces=recorrerMapaSemestre(nivel7);
+        }if (claseActual.getMateria().getSemestre()==8){
+            numero_cruces=recorrerMapaSemestre(nivel8);
+        }if (claseActual.getMateria().getSemestre()==9){
+            numero_cruces=recorrerMapaSemestre(nivel9);
+        }
+        if(numero_cruces > 0){
+            return 0;
+        }else{
+            return 1;
+        } 
+    }
+    
+  
+    
+    public void LlenarMapClases(IChromosome ic){
+        
+        for(int i=0;i<TAM_CROMOSOME;i++){
+            if((Integer) ic.getGene(i).getAllele()!=0){
+                Iterator<Clase> nIterator= d.getClases().iterator();
+                while(nIterator.hasNext()){
+                    Clase claseActual=nIterator.next();
+                    if(claseActual.getId()==(Integer) ic.getGene(i).getAllele()){
+                        Mapclases.put(claseActual, i);
+                    }
+                }
+            }
+        }
+    }
+    
+    public int crucesClaseProfesor(IChromosome ic ,Clase ClaseActual){
+        int hora1=-1,hora2=-1,hora3=-1;
+        int hora1temp=-1,hora2temp=-1,hora3temp=-1;
+        int cruces=0;
+        Iterator<Clase> iterador2 = Mapclases.keySet().iterator();
+            if(ClaseActual.getDuracion()==2){
+                hora1=(int) Mapclases.get(ClaseActual);
+                hora2=(int)Mapclases.get(ClaseActual)+1;
+            }
+            if(ClaseActual.getDuracion()==3){
+                hora1=(int) Mapclases.get(ClaseActual);
+                hora2=(int)Mapclases.get(ClaseActual)+1;
+                hora3=(int)Mapclases.get(ClaseActual)+2;
+                
+            }
+            while(iterador2.hasNext()){
+                Clase cla2 = iterador2.next();
+                if (ClaseActual.getProfesor().getId()==cla2.getProfesor().getId()){
+                    if(cla2.getId()!=ClaseActual.getId()){
+
+                        if(cla2.getDuracion()==2 && ClaseActual.getDuracion()==2){
+                            hora1temp=(int) Mapclases.get(cla2);
+                            hora2temp=(int)Mapclases.get(cla2)+1;
+
+                            if(hora1==hora1temp || hora1==hora2temp){
+                                cruces+=1;
+                            }
+                            if(hora2==hora1temp || hora2==hora2temp){
+                                cruces+=1;
+                            }
+                        }
+                        if(cla2.getDuracion()==3 && ClaseActual.getDuracion()==3){
+                            hora1temp=(int) Mapclases.get(cla2);
+                            hora2temp=(int)Mapclases.get(cla2)+1;
+                            hora3temp=(int)Mapclases.get(cla2)+2;
+
+                            if(hora1==hora1temp || hora1==hora2temp || hora1==hora3temp){
+                                cruces+=1;
+                            }
+                            if(hora2==hora1temp || hora2==hora2temp || hora2==hora3temp){
+                                cruces+=1;
+                            }
+                            if(hora3==hora1temp || hora3==hora2temp || hora3==hora3temp){
+                                cruces+=1;
+                            }
+                        }
+
+                        if(cla2.getDuracion()==2 && ClaseActual.getDuracion()==3){
+                            hora1temp=(int) Mapclases.get(cla2);
+                            hora2temp=(int)Mapclases.get(cla2)+1;
+
+                            if(hora1==hora1temp || hora1==hora2temp ){
+                                cruces+=1;
+                            }
+                            if(hora2==hora1temp || hora2==hora2temp ){
+                                cruces+=1;
+                            }
+                            if(hora3==hora1temp || hora3==hora2temp ){
+                                cruces+=1;
+                            }
+                        }
+                        if(cla2.getDuracion()==3 && ClaseActual.getDuracion()==2){
+                            hora1temp=(int) Mapclases.get(cla2);
+                            hora2temp=(int)Mapclases.get(cla2)+1;
+                            hora3temp=(int)Mapclases.get(cla2)+2;
+
+                            if(hora1==hora1temp || hora1==hora2temp || hora1==hora3temp){
+                                cruces+=1;
+                            }
+                            if(hora2==hora1temp || hora2==hora2temp || hora2==hora3temp){
+                                cruces+=1;
+                            }
+                        }
+                    }
+                }
+            }
+        
+        return cruces;
+    }
+    
+    public int verificarClaseProfesor(IChromosome ic,Clase claseactual){
+        int numero_cruces=0;
+        LlenarMapClases(ic);
+        
+        if(crucesClaseProfesor(ic,claseactual) > 0){
+            return 0;
+        }else{
+            return 1;
+        }
     }
     
 }
