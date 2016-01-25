@@ -9,16 +9,25 @@ import aiproject_clases.CalculateAptitudeSchedule;
 import aiproject_clases.Clase;
 import aiproject_clases.Datos;
 import aiproject_clases.MenuActionListener;
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
+import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.ParserConfigurationException;
@@ -72,7 +81,12 @@ public class AIProject_Genetic_Algorithms {
 
     public static Object[] tablas = new Object[10];
     public static JFrame principal = new JFrame("Course Distribution");
-    public static Container container = AIProject_Genetic_Algorithms.principal.getContentPane();
+    public static Container container = principal.getContentPane();
+    
+    public static JFrame mainFrame = new JFrame("Evolution Progress");
+    public static Box box = Box.createVerticalBox();
+    public static JScrollPane pane = new JScrollPane(box);
+    public static JButton showResults = new JButton("Results");
     
     public AIProject_Genetic_Algorithms(int seed) throws Exception {
        
@@ -152,10 +166,16 @@ public class AIProject_Genetic_Algorithms {
      }
     
      private void evolve(Genotype a_genotype) {
+        
         int valorFitness=1;
         System.out.println("NumeroOptimo:"+valorFitness);
         
         double previousFittest = a_genotype.getFittestChromosome().getFitnessValue();
+        box.setSize(400,700);
+        mainFrame.setSize(400,700);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setVisible(true);
+        mainFrame.add(pane);
         
         for (int i = 0; i < NUMERO_EVOLUCIONES; i++) {
              
@@ -170,24 +190,41 @@ public class AIProject_Genetic_Algorithms {
                     break;
             }
         }       
+        showResults.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                principal.setVisible(true);
+            }
+        });
+        showResults.setAlignmentX(Component.CENTER_ALIGNMENT);
+        box.add(showResults);
+        box.revalidate();
+        
         IChromosome fittest = a_genotype.getFittestChromosome();
-        //this.printFittest(fittest);
         this.printSolution2(fittest);     
         this.printSolution(fittest);
      }
      
      private void printFittest(IChromosome fittest,int i) {
         Gene[] genes = fittest.getGenes();
-        System.out.println("Evolution:"+i+" Fitness value [" + fittest.getFitnessValue() + "]");
+        String fittestStr = "\t Evolution:   ["+i+"]    \t     Fitness Value:   [" + fittest.getFitnessValue() + "]";
+        JLabel label = new JLabel(fittestStr);
+        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        box.add(label);
+        System.out.println("Evolution:["+i+"]    \t   Fitness Value: [" + fittest.getFitnessValue() + "]");
+        box.revalidate();
      }
      
      private void printSolution2(IChromosome fittest) {
+         
         JMenuBar menu = new JMenuBar();
         JMenu rooms = new JMenu("Rooms");
         menu.add(rooms);
         Object days[] = {"Mon", "Tue", "Wed", "Thu", "Fri"};
-        principal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        principal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         int tableIndex = 0;
+        
         int aula=0,dia=0,hora=0,tmp,gene=0, id=0;
         int [][] aula1Matriz = new int[12][5];
         for (int x=0; x < 12; x++) {
@@ -298,7 +335,7 @@ public class AIProject_Genetic_Algorithms {
         }
         principal.setJMenuBar(menu);
         principal.setSize(500, 300);
-        principal.setVisible(true);
+        principal.setVisible(false);
      }
      
      private void printSolution(IChromosome fittest) {

@@ -31,6 +31,7 @@ public class MenuActionListener implements ActionListener{
         JTable aux = (JTable) AIProject_Genetic_Algorithms.tablas[this.i];
         JScrollPane scrollPane = new JScrollPane(aux);
         AIProject_Genetic_Algorithms.container.add(scrollPane, BorderLayout.CENTER);
+        AIProject_Genetic_Algorithms.principal.setTitle("Course Distribution: Room "+(this.i+1));
     }
     
 }
