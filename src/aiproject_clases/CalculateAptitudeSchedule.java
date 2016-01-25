@@ -26,19 +26,18 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     private double HORAS_DIA;
     private double TAM_CROMOSOME;
     
-    Map<Clase,Integer>nivel2= new HashMap<Clase,Integer>();
-    Map<Clase,Integer>nivel3= new HashMap<Clase,Integer>();
-    Map<Clase,Integer>nivel4= new HashMap<Clase,Integer>();
-    Map<Clase,Integer>nivel5= new HashMap<Clase,Integer>();
-    Map<Clase,Integer>nivel6= new HashMap<Clase,Integer>();
-    Map<Clase,Integer>nivel7= new HashMap<Clase,Integer>();
-    Map<Clase,Integer>nivel8= new HashMap<Clase,Integer>();
-    Map<Clase,Integer>nivel9= new HashMap<Clase,Integer>();
-    Map<Clase,Integer>Mapclases= new HashMap<Clase,Integer>();
+    Map<Clase,Integer>nivel2= new HashMap<>();
+    Map<Clase,Integer>nivel3= new HashMap<>();
+    Map<Clase,Integer>nivel4= new HashMap<>();
+    Map<Clase,Integer>nivel5= new HashMap<>();
+    Map<Clase,Integer>nivel6= new HashMap<>();
+    Map<Clase,Integer>nivel7= new HashMap<>();
+    Map<Clase,Integer>nivel8= new HashMap<>();
+    Map<Clase,Integer>nivel9= new HashMap<>();
+    Map<Clase,Integer>Mapclases= new HashMap<>();
         
     
     Boolean[] clasesEncontradas;
-    
     
 
     public void setDatos(Datos d) {
@@ -70,7 +69,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         double puntuacionCromosoma=0;
         double fitnnessValueChromosoma=0;
         
-        
+        LlenarMapaClasesNiveles(ic);
         /*
         int index=1679;int aula=index/60;int dia=(index%60)/12;int hora=(index%60)%12;
         */
@@ -86,7 +85,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                     puntuacionCromosoma+=(verificarDuracion(ic,index,claseActual));//4
                     puntuacionCromosoma+=(verificarClaseDia(index,claseActual));//3
                     puntuacionCromosoma+=(verificarMateriaDia(ic,index,claseActual));//3
-                    puntuacionCromosoma+=(verificarMateriasSemestre(ic,index,claseActual));//3
+                    puntuacionCromosoma+=(verificarClasesSemestre(ic,claseActual));//3
                 } 
             }
             index++;            
@@ -96,7 +95,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             clasesEncontradas[i]=false;
         }
         
-        fitnnessValueChromosoma= puntuacionCromosoma/((d.getClases().size()*12)+(d.getClases().size()*9));
+        fitnnessValueChromosoma= puntuacionCromosoma/((d.getClases().size()*12)+(d.getClases().size()*6));
         return fitnnessValueChromosoma;
     }
     /*
@@ -212,41 +211,8 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     Retorna: int
     Descripcion: Esta funcion verifica si para una clase con una materia de un semestre determinado, no se cruza con ninguna
     clase de una materia con el mismo semestre. Si es el mismo semestre de materias retorna 0, caso contrario retorna 3
-    */
-    public int verificarMateriasSemestre(IChromosome ic,int index, Clase claseActual){
-        if(index+claseActual.getDuracion()>TAM_CROMOSOME){
-            return 0;
-        }
-        int[] horasClaseActual=new int[(int)claseActual.getDuracion()];
-        int horaActualtmp=(index%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA;
-        for(int i=0; i<horasClaseActual.length; i++){
-            horasClaseActual[i]=horaActualtmp;
-            horaActualtmp++;
-        }
-        int aulaActual=(index/(int)HORAS_SEMANA_AULA);
-        int diaActual=(index%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
-        int indexDia=(aulaActual*(int)HORAS_SEMANA_AULA)+(diaActual*(int)HORAS_DIA);
-        do{
-            for(int i=0;i<horasClaseActual.length;i++){
-                int indexComparacion=indexDia+horasClaseActual[i];
-                if(indexComparacion<TAM_CROMOSOME){
-                    int id=(Integer)ic.getGene(indexComparacion).getAllele();
-                    if(id!=0 && id!=claseActual.getId()){
-                        Clase clase=d.getClase(id);
-                        if (clase!=null){
-                            if(clase.getMateria().getSemestre()==claseActual.getMateria().getSemestre()){
-                                 return 0;   
-                            }
-                        }
-                    }
-                }else{
-                    break;
-                }                
-            }
-            indexDia+=HORAS_DIA;
-        }while(indexDia<(TAM_CROMOSOME));
-        return 3;     
-    }
+    
+    
     
     /*
     Funcion: verificarProfesorHora
@@ -307,10 +273,6 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         
     }
     
-    
-    
-    
-    
     public int verificarAula(int index,Clase claseactual){
         int aula=index/60;
         if(claseactual.getLab() && d.getAulas().get(aula).getLab()){
@@ -339,17 +301,8 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-     public int verificarClasesNiveles(IChromosome ic, Clase claseActual){
+     public int verificarClasesSemestre(IChromosome ic, Clase claseActual){
         int numero_cruces=0;
-        LlenarMapaClasesNiveles(ic);
         
         if (claseActual.getMateria().getSemestre()==2){
             numero_cruces=recorrerMapaSemestre(nivel2);
@@ -377,18 +330,14 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     
     
     
-
-    
-    
-    
-    
     public void LlenarMapaClasesNiveles(IChromosome ic){
         for(int i=0;i<TAM_CROMOSOME;i++){
-            if((Integer) ic.getGene(i).getAllele()!=0){
+            int alelo=(Integer) ic.getGene(i).getAllele();
+            if(alelo!=0){
                 Iterator<Clase> nIterator= d.getClases().iterator();
                 while(nIterator.hasNext()){
                     Clase claseActual=nIterator.next();
-                    if(claseActual.getId()==(Integer) ic.getGene(i).getAllele()){
+                    if(claseActual.getId()==alelo){
                         if(claseActual.getMateria().getSemestre()==2){
                             nivel2.put(claseActual, i);
                         }if(claseActual.getMateria().getSemestre()==3){
@@ -413,13 +362,22 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     }
     
     public int recorrerMapaSemestre(Map mapa){
-        int hora1=-1,hora2=-1,hora3=-1;
-        int hora1temp=-1,hora2temp=-1,hora3temp=-1;
+        int hora1temp,hora2temp,hora3temp;
         int cruces=0;
         Iterator<Clase> iterador = mapa.keySet().iterator();
         Iterator<Clase> iterador2 = mapa.keySet().iterator();
         while(iterador.hasNext()){
             Clase cla = iterador.next();
+            
+            int[] horasClaseActual=new int[(int)claseActual.getDuracion()];
+            int horaActualtmp=(index%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA;
+            for(int i=0; i<horasClaseActual.length; i++){
+                horasClaseActual[i]=horaActualtmp;
+                horaActualtmp++;
+            }
+            
+            
+            
             if(cla.getDuracion()==2){
                 hora1=(int) mapa.get(cla);
                 hora2=(int)mapa.get(cla)+1;
@@ -428,7 +386,6 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                 hora1=(int) mapa.get(cla);
                 hora2=(int)mapa.get(cla)+1;
                 hora3=(int)mapa.get(cla)+2;
-                
             }
             while(iterador2.hasNext()){
                 Clase cla2 = iterador2.next();
@@ -496,7 +453,6 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
    
     
     public void LlenarMapClases(IChromosome ic){
-        
         for(int i=0;i<TAM_CROMOSOME;i++){
             if((Integer) ic.getGene(i).getAllele()!=0){
                 Iterator<Clase> nIterator= d.getClases().iterator();
