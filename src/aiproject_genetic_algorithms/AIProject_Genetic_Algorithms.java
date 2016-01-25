@@ -90,13 +90,6 @@ public class AIProject_Genetic_Algorithms {
             gaConf.setPreservFittestIndividual(true);
             gaConf.setPopulationSize(TAMANIO_POBLACION);
             gaConf.setKeepPopulationSizeConstant(false);
- 
-       /*
-        gaConf.getNaturalSelectors(false).clear();
-        BestChromosomesSelector bcs = new BestChromosomesSelector(gaConf, 1.0d);
-        bcs.setDoubletteChromosomesAllowed(false);
-        gaConf.addNaturalSelector(bcs, false);
-        */
         
        
         // The number of chromosomes is the number of boxes we have. 
@@ -204,7 +197,6 @@ public class AIProject_Genetic_Algorithms {
                     }index++;
                 }
             }
-            
             if(aulaAnterior==60){
                 System.out.println("AULA:"+aula);
                  for (int x=0; x < aulaMatriz.length; x++) {
@@ -238,12 +230,11 @@ public class AIProject_Genetic_Algorithms {
                 aulaAnterior=aula;
                 dia=(index%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
                 hora=(index%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA;
-                System.out.print(" Clase[" + clase+"-"+c.getDuracion() + "] Aula["+aula+"] Dia["+dia+"] Hora["+hora+"] //");
+                System.out.print(" Clase[" + clase+"-"+c.getDuracion() + "] Materia["+c.getMateria().getId()+"] Aula["+aula+"] Dia["+dia+"] Hora["+hora+"] //");
             }
         }        
      }
      
-    
 
     /**
      * @param args the command line arguments
@@ -258,9 +249,6 @@ public class AIProject_Genetic_Algorithms {
         new AIProject_Genetic_Algorithms(seed);
     }
     
-    
-    
-    
      private void inicializarVariables(){
         NUMERO_DE_AULAS=d.getAulas().size();
         NUMERO_DE_PROFESORES=d.getProfesores().size();
@@ -268,6 +256,7 @@ public class AIProject_Genetic_Algorithms {
         NUMERO_DE_CLASES=d.getClases().size();
         
         HORAS_SEMANA_AULA=HORAS_DIA*DIAS_SEMANA;
+        
         TOTAL_HORAS=NUMERO_DE_AULAS*DIAS_SEMANA*HORAS_DIA;
     }
      

@@ -83,7 +83,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                 if(claseActual!=null){
                     clasesEncontradas[idClase-1]=true;
                     puntuacionCromosoma+=(verificarClaseNoRepetida(ic,index,claseActual));//4
-                    puntuacionCromosoma+=(verificarDuracion(ic,index,claseActual));//3
+                    puntuacionCromosoma+=(verificarDuracion(ic,index,claseActual));//4
                     puntuacionCromosoma+=(verificarClaseDia(index,claseActual));//3
                     puntuacionCromosoma+=(verificarMateriaDia(ic,index,claseActual));//3
                 } 
@@ -95,7 +95,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             clasesEncontradas[i]=false;
         }
         
-        fitnnessValueChromosoma= puntuacionCromosoma/((d.getClases().size()*8)+(d.getClases().size()*9));
+        fitnnessValueChromosoma= puntuacionCromosoma/((d.getClases().size()*12)+(d.getClases().size()*6));
         return fitnnessValueChromosoma;
     }
     /*
@@ -133,7 +133,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                 return 0;
             }
         }
-        return 3;        
+        return 4;        
     }
     /*
     Funcion: verificarExistenTodasLasClases
@@ -175,14 +175,16 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     */
     public int verificarMateriaDia(IChromosome ic,int index,Clase claseactual){
       
+        
         int aulaActual=(index/(int)HORAS_SEMANA_AULA);
         int indexAula=aulaActual*60;
         int diaActual=(index%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
+        int horaActual=(index%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA;
         do{
             //Tengo que encontrar la posicion del dia a comparar en todas las aulas
             //Ejemplo diaActual=3;HORAS_DIA=12;indexAula=180(aula3); entonces posicionDia=3*12+180= 216(indice en el cromosoma)
             int indexDiaComparacion=indexAula+(diaActual*(int)HORAS_DIA);
-            for(int hora=0;hora<HORAS_DIA;hora++){
+            for(int hora=(horaActual+1);hora<HORAS_DIA;hora++){
                  //obtengo el alelo de ese aula,dia y hora
                 int id=(Integer)ic.getGene(indexDiaComparacion+hora).getAllele();
                 //si encuentro un id en el gen y ese gen es diferente al id de la clase actual entro
@@ -262,12 +264,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
         return 1;
         
     }
-    
-     
-    
-    
-    
-    
+
     public int verificarAula(int index,Clase claseactual){
         int aula=index/60;
         if(claseactual.getLab() && d.getAulas().get(aula).getLab()){
