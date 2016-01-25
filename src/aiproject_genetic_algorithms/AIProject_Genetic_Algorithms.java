@@ -160,7 +160,7 @@ public class AIProject_Genetic_Algorithms {
         }       
         IChromosome fittest = a_genotype.getFittestChromosome();
         //this.printFittest(fittest);
-        //this.printSolution2(fittest);     
+        this.printSolution2(fittest);     
         this.printSolution(fittest);
      }
      
@@ -170,7 +170,55 @@ public class AIProject_Genetic_Algorithms {
      }
      
      private void printSolution2(IChromosome fittest) {
-        int aula=0, aulaAnterior=1, dia=0,hora=0,tmp;
+        int aula=0,dia=0,hora=0,tmp,gene=0, id=0;
+        int [][] aula1Matriz = new int[12][5];
+        for (int x=0; x < 12; x++) {
+            for (int y=0; y < 5; y++) {
+              aula1Matriz[x][y]=0;
+            }
+        }
+        
+        
+        while(gene < fittest.size()){
+            for(int indicedia=0;indicedia<5;indicedia++){          
+                for(int indicehora=0;indicehora<12;indicehora++){          
+                    id=(int)fittest.getGene(gene).getAllele();
+                    if(aula1Matriz[indicehora][indicedia]==0){
+                        aula1Matriz[indicehora][indicedia]=id;
+                    }
+                    if(id!=0){    
+                        Clase c=d.getClases().get(id-1);
+                        for (int j=1;j<c.getDuracion();j++){
+                            if(indicehora+j<12){
+                                aula1Matriz[indicehora+j][indicedia]=id;
+                            }
+                        }
+                        if(indicehora+c.getDuracion()<=12){
+                           // indicehora=indicehora+((int)c.getDuracion()-1);
+                            
+                        }
+                    }
+                    gene++;
+                }
+            }
+            System.out.println("AULA:"+(gene-1)/60);
+                 for (int x=0; x < aula1Matriz.length; x++) {
+                    System.out.print("|");
+                    for (int y=0; y < aula1Matriz[x].length; y++) {
+                      System.out.print (aula1Matriz[x][y]);
+                      if (y!=aula1Matriz[x].length-1) System.out.print("\t");
+                    }
+                    System.out.println("|");
+                }
+            System.out.println(gene);
+            
+            for (int x=0; x < 12; x++) {
+                for (int y=0; y < 5; y++) {
+                  aula1Matriz[x][y]=0;
+                }
+            }
+        }
+         /*int aula=0, aulaAnterior=1, dia=0,hora=0,tmp;
         int [][] aulaMatriz = new int[12][5]; 
         for(int index=0;index<TOTAL_HORAS;index++){           
             
@@ -197,6 +245,7 @@ public class AIProject_Genetic_Algorithms {
                     }index++;
                 }
             }
+            
             if(aulaAnterior==60){
                 System.out.println("AULA:"+aula);
                  for (int x=0; x < aulaMatriz.length; x++) {
@@ -211,8 +260,8 @@ public class AIProject_Genetic_Algorithms {
             }
             aulaAnterior++;
            
-           
-        }        
+          
+        }*/         
      }
      
      private void printSolution(IChromosome fittest) {
