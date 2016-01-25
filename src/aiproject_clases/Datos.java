@@ -49,6 +49,19 @@ public class Datos {
         return clases;
     }
     
+    public Clase getClase(int id){
+        Clase clase=null;
+        Iterator<Clase> nIterator= this.clases.iterator();
+        while(nIterator.hasNext()){
+           Clase c=nIterator.next();
+           if(c.getId()==id){
+               clase=c;
+           }
+        }
+        return clase;
+            
+    }
+    
 
     public Datos() {
         profesores= new ArrayList();

@@ -8,6 +8,7 @@ package aiproject_clases;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.jgap.FitnessFunction;
+import org.jgap.Gene;
 import org.jgap.IChromosome;
 
 /**
@@ -46,47 +47,35 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
     protected double evaluate(IChromosome ic) {
         double puntuacionCromosoma=0;
         double fitnnessValueChromosoma=0;
-        int tamChromosome=ic.size();
         /*
-        int index=1679;
-        int aula=index/60;
-        int dia=(index%60)/12;
-        int hora=(index%60)%12;
-
+        int index=1679;int aula=index/60;int dia=(index%60)/12;int hora=(index%60)%12;
         */
-        for(int i=0;i<tamChromosome;i++){
-            if((Integer) ic.getGene(i).getAllele()!=0){
-                Iterator<Clase> nIterator= d.getClases().iterator();
-                while(nIterator.hasNext()){
-                    Clase claseActual=nIterator.next();
-                    if(claseActual.getId()==(Integer) ic.getGene(i).getAllele()){
-                        
-                        puntuacionCromosoma+=(verificarDuracion(ic,i,claseActual)+
-                                verificarMateriaDia(ic,i,claseActual)/*+
-                                verificarProfesorHora(ic,i,claseActual)*/);
-                        break;
-                    }
-                }
+        int index = 0;
+        Gene[] genes = ic.getGenes();
+        for (Gene gene : genes) {
+            int idClase = (Integer) gene.getAllele();
+            if(idClase!=0){
+                Clase claseActual=d.getClase(idClase);
+                if(claseActual!=null){
+                    puntuacionCromosoma+=(verificarClaseNoRepetida(ic,index,claseActual));
+                    puntuacionCromosoma+=(verificarDuracion(ic,index,claseActual));
+                } 
             }
+            index++;            
         }
-
         //Como se implementarion 7 validaciones(puntos-score) posibles. Se tiene que multiplicar el numero de clases *7
-        fitnnessValueChromosoma= puntuacionCromosoma/(2*(d.getClases().size()));
-        // Take into account the number of vans needed. More vans produce a higher fitness value.
-        //return wastedVolume * numberOfVansNeeded;
+        fitnnessValueChromosoma= puntuacionCromosoma/((d.getClases().size()*4)+(d.getClases().size()*3));
         return fitnnessValueChromosoma;
-
-        
     }
     
     /*
     Funcion: verificarDuracion
     Retorna: int
     Descripcion: Esta funcion verifica si en la duración de la clase es decir por ejemplo tres horas no hay ninguna
-    otra clase asignada. Si no hay ninguna clase es decir es algun gen diferente de cero retorna 0 sino retorna 1
+    otra clase asignada. Si no hay ninguna clase es decir es algun gen diferente de cero retorna 0 sino retorna 3
     */
     public int verificarDuracion(IChromosome ic,int index,Clase claseactual){
-        if(index+claseactual.getDuracion()>TAM_CROMOSOME){
+        if(index+(claseactual.getDuracion())>TAM_CROMOSOME){
             return 0;
         }
         for(int i=1;i<claseactual.getDuracion();i++){
@@ -94,7 +83,27 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
                 return 0;
             }
         }
-        return 1;        
+        return 3;        
+    }
+    /*
+    Funcion: verificarClaseNoRepetida
+    Retorna: int
+    Descripcion: Esta funcion verifica si una clase no se encuentra repetida en el cromosoma, si no esta repetida retorna 2
+    si no retorna 0
+    */
+    public int verificarClaseNoRepetida(IChromosome ic,int index,Clase claseactual){
+        for(int i=index+1;i<TAM_CROMOSOME;i++){
+            int id=(Integer)ic.getGene(i).getAllele();
+            if(id!=0){
+                Clase claseEncontrada=d.getClase(id);
+                if(claseEncontrada!=null){
+                    if(claseEncontrada.getId()==claseactual.getId()){
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 4;        
     }
     /*
     Funcion: verificarMateriaDia
@@ -136,7 +145,7 @@ public class CalculateAptitudeSchedule extends FitnessFunction{
             indexAula+=HORAS_SEMANA_AULA;
         }while(indexAula<(d.getAulas().size()*HORAS_SEMANA_AULA));
         
-        return 1;
+        return 2;
         
     }
     

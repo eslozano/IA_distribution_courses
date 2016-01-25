@@ -22,8 +22,11 @@ import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
+import org.jgap.impl.BestChromosomesSelector;
+import org.jgap.impl.CrossoverOperator;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
+import org.jgap.impl.MutationOperator;
 import org.jgap.impl.SwappingMutationOperator;
 
 /**
@@ -34,7 +37,7 @@ public class AIProject_Genetic_Algorithms {
     //private static final Logger LOG = Logger.getLogger(AIProject_Genetic_Algorithms.class);
     private static final int NUMERO_EVOLUCIONES = 5000;
     // El tamaño de la poblaion (numero de cromosomas en el genotipo)    
-    private static final int TAMANIO_POBLACION = 25;
+    private static final int TAMANIO_POBLACION = 100;
     
     // Los dias de la semana, y el total de horas diarias
     private static final double DIAS_SEMANA = 5;
@@ -78,29 +81,24 @@ public class AIProject_Genetic_Algorithms {
     
      private Genotype configureJGAP() throws InvalidConfigurationException {
        
-         Configuration gaConf = new DefaultConfiguration();
-                 
-         
-         /*
-         
-        // Here we specify a fitness evaluator where lower values means a better fitness
-        Configuration.resetProperty(Configuration.PROPERTY_FITEVAL_INST);
-        gaConf.setFitnessEvaluator(new DeltaFitnessEvaluator());
-
-        // Only use the swapping operator. Other operations makes no sense here
-        // and the size of the chromosome must remain constant
-        //Examples of genetic operators are reproduction, crossover, and mutation.
-        gaConf.getGeneticOperators().clear();
-        SwappingMutationOperator swapper = new SwappingMutationOperator(gaConf);
-        gaConf.addGeneticOperator(swapper);
-
-        // We are only interested in the most fittest individual
-        gaConf.setPreservFittestIndividual(true);
-        gaConf.setKeepPopulationSizeConstant(false);
-        
+            Configuration gaConf = new DefaultConfiguration();
+            Configuration.resetProperty(Configuration.PROPERTY_FITEVAL_INST);
+            
+            gaConf.getGeneticOperators().clear();
+            SwappingMutationOperator swapper = new SwappingMutationOperator(gaConf);
+            gaConf.addGeneticOperator(swapper);
+            gaConf.setPreservFittestIndividual(true);
+            gaConf.setPopulationSize(TAMANIO_POBLACION);
+            gaConf.setKeepPopulationSizeConstant(false);
+ 
+       /*
+        gaConf.getNaturalSelectors(false).clear();
+        BestChromosomesSelector bcs = new BestChromosomesSelector(gaConf, 1.0d);
+        bcs.setDoubletteChromosomesAllowed(false);
+        gaConf.addNaturalSelector(bcs, false);
         */
-
-        gaConf.setPopulationSize(TAMANIO_POBLACION);
+        
+       
         // The number of chromosomes is the number of boxes we have. 
         int chromeSize = (int)TOTAL_HORAS;
         Genotype genotype;
@@ -157,31 +155,25 @@ public class AIProject_Genetic_Algorithms {
         double previousFittest = a_genotype.getFittestChromosome().getFitnessValue();
         
         for (int i = 0; i < NUMERO_EVOLUCIONES; i++) {
-            /*
              if (i % 250 == 0) {
                      System.out.println("Number of evolutions [" + i + "]");
                      System.out.println("Valor fitness[" + previousFittest + "]");
              }
-             */
-            System.out.println("Number of evolutions [" + i + "]");
-            System.out.println("Valor fitness[" + previousFittest + "]");
-
             a_genotype.evolve();
             double fittness = a_genotype.getFittestChromosome().getFitnessValue();
-            //System.out.println("Valor nuevo fitness[" + fittness + "]");
+            
             if (fittness > previousFittest ) {
                 this.printFittest(a_genotype.getFittestChromosome());
                 previousFittest = fittness;
             }
-            // No more optimal solutions
-            if (valorFitness < fittness) {
+            if (fittness>=valorFitness) {
                     break;
             }
         }       
         IChromosome fittest = a_genotype.getFittestChromosome();
-        this.printFittest(fittest);
-        //this.printSolution2(fittest);     
-        //this.printSolution(fittest);
+        //this.printFittest(fittest);
+        this.printSolution2(fittest);     
+        this.printSolution(fittest);
      }
      
      private void printFittest(IChromosome fittest) {
@@ -190,7 +182,7 @@ public class AIProject_Genetic_Algorithms {
      }
      
      private void printSolution2(IChromosome fittest) {
-        int aula=0, aulaAnterior=1, dia=0, diaAnterior=0,hora=0;
+        int aula=0, aulaAnterior=1, dia=0,hora=0,tmp;
         int [][] aulaMatriz = new int[12][5]; 
         for(int index=0;index<TOTAL_HORAS;index++){           
             
@@ -200,9 +192,24 @@ public class AIProject_Genetic_Algorithms {
             
             int clase=(int)fittest.getGene(index).getAllele();
             aulaMatriz[hora][dia]=clase;
+            
             if(clase!=0){
-                
+                Clase c=d.getClase(clase);
+                double maximo=index+c.getDuracion();
+                for(int i=(index+1);i<maximo;i++){
+                    dia=(i%(int)HORAS_SEMANA_AULA)/(int)HORAS_DIA;
+                    hora=(i%(int)HORAS_SEMANA_AULA)%(int)HORAS_DIA; 
+                    tmp=(int)fittest.getGene(i).getAllele();
+                    if(hora<12 && dia<5){
+                        if(tmp!=0){
+                            aulaMatriz[hora][dia]=tmp;
+                        }else{
+                            aulaMatriz[hora][dia]=clase;
+                        }   
+                    }index++;
+                }
             }
+            
             if(aulaAnterior==60){
                 System.out.println("AULA:"+aula);
                  for (int x=0; x < aulaMatriz.length; x++) {
@@ -220,8 +227,6 @@ public class AIProject_Genetic_Algorithms {
            
         }        
      }
-     
-     
      
      private void printSolution(IChromosome fittest) {
         int aula=0, aulaAnterior=0, dia=0,hora=0;
