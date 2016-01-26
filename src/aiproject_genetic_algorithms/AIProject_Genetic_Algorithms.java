@@ -263,7 +263,7 @@ public class AIProject_Genetic_Algorithms {
                       //System.out.print (aula1Matriz[x][y]);
                       Clase c=d.getClase(aula1Matriz[x][y]);
                       if(c!=null){
-                          fila[y] = c.getMateria().getNombre();
+                          fila[y] = c.getMateria().getNombre()+" Par:"+c.getMateria().getParalelo();
                       }
                       //if (y!=aula1Matriz[x].length-1) 
                           //System.out.print("\t");
