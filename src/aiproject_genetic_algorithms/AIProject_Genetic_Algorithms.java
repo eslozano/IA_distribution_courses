@@ -54,7 +54,7 @@ public class AIProject_Genetic_Algorithms {
     //private static final Logger LOG = Logger.getLogger(AIProject_Genetic_Algorithms.class);
     private static final int NUMERO_EVOLUCIONES = 5000;
     // El tamaño de la poblaion (numero de cromosomas en el genotipo)    
-    private static final int TAMANIO_POBLACION = 100;
+    private static final int TAMANIO_POBLACION = 50;
     
     // Los dias de la semana, y el total de horas diarias
     private static final double DIAS_SEMANA = 5;
@@ -168,7 +168,7 @@ public class AIProject_Genetic_Algorithms {
      private void evolve(Genotype a_genotype) {
         
         int valorFitness=1;
-        System.out.println("NumeroOptimo:"+valorFitness);
+        //System.out.println("NumeroOptimo:"+valorFitness);
         
         double previousFittest = a_genotype.getFittestChromosome().getFitnessValue();
         box.setSize(400,700);
@@ -177,8 +177,10 @@ public class AIProject_Genetic_Algorithms {
         mainFrame.setVisible(true);
         mainFrame.add(pane);
         
+        int evolucion=0;
+        
         for (int i = 0; i < NUMERO_EVOLUCIONES; i++) {
-             
+            evolucion=i;
             a_genotype.evolve();
             double fittness = a_genotype.getFittestChromosome().getFitnessValue();            
             
@@ -190,6 +192,14 @@ public class AIProject_Genetic_Algorithms {
                     break;
             }
         }       
+        
+        IChromosome fittest = a_genotype.getFittestChromosome();
+        if(evolucion==4999)
+            this.printFittest(fittest,evolucion);
+        this.printSolution2(fittest);     
+        //this.printSolution(fittest);
+        
+        
         showResults.addActionListener(new ActionListener() {
 
             @Override
@@ -200,10 +210,7 @@ public class AIProject_Genetic_Algorithms {
         showResults.setAlignmentX(Component.CENTER_ALIGNMENT);
         box.add(showResults);
         box.revalidate();
-        
-        IChromosome fittest = a_genotype.getFittestChromosome();
-        this.printSolution2(fittest);     
-        //this.printSolution(fittest);
+     
      }
      
      private void printFittest(IChromosome fittest,int i) {
@@ -212,7 +219,7 @@ public class AIProject_Genetic_Algorithms {
         JLabel label = new JLabel(fittestStr);
         label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         box.add(label);
-        System.out.println("Evolution:["+i+"]    \t   Fitness Value: [" + fittest.getFitnessValue() + "]");
+        //System.out.println("Evolution:["+i+"]    \t   Fitness Value: [" + fittest.getFitnessValue() + "]");
         box.revalidate();
      }
      
@@ -223,14 +230,14 @@ public class AIProject_Genetic_Algorithms {
         JMenuBar menu = new JMenuBar();
         JMenu rooms = new JMenu("Rooms");
         menu.add(rooms);
-        Object days[] = {"Mon", "Tue", "Wed", "Thu", "Fri"};
+        Object days[] = {"Time","Mon", "Tue", "Wed", "Thu", "Fri"};
         principal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         int tableIndex = 0;
         
         int gene=0, id=0;
-        int [][] aula1Matriz = new int[12][5];
-        for (int x=0; x < 12; x++) {
-            for (int y=0; y < 5; y++) {
+        int [][] aula1Matriz = new int[(int)HORAS_DIA][(int)DIAS_SEMANA];
+        for (int x=0; x < (int)HORAS_DIA; x++) {
+            for (int y=0; y < (int)DIAS_SEMANA; y++) {
               aula1Matriz[x][y]=0;
             }
         }
@@ -253,28 +260,54 @@ public class AIProject_Genetic_Algorithms {
                     gene++;
                 }
             }
-            System.out.println("AULA:"+(gene-1)/60);
             JTable table = new JTable();
             DefaultTableModel model = new DefaultTableModel(days, 0);
-                 for (int x=0; x < aula1Matriz.length; x++) {
-                    //System.out.print("|");
-                    Object [] fila = new Object[5];
-                    for (int y=0; y < aula1Matriz[x].length; y++) {
-                      //System.out.print (aula1Matriz[x][y]);
-                      Clase c=d.getClase(aula1Matriz[x][y]);
-                      if(c!=null){
-                          fila[y] = c.getMateria().getNombre()+" Par:"+c.getMateria().getParalelo();
-                      }
-                      //if (y!=aula1Matriz[x].length-1) 
-                          //System.out.print("\t");
-                    }
-                    model.addRow(fila); 
-                    //System.out.println("|");
+                       
+            
+            for (int x=0; x < aula1Matriz.length; x++) {
+
+               Object [] fila = new Object[6];
+                switch (x) {
+                    case 0:  fila[0] = "7:30-8:30";
+                         break;
+                    case 1:  fila[0] = "8:30-9:30";
+                             break;
+                    case 2:  fila[0] = "9:30-10:30";
+                             break;
+                    case 3:  fila[0] = "10:30-11:30";
+                             break;
+                    case 4:  fila[0] = "11:30-12:30";
+                             break;
+                    case 5:  fila[0] = "12:30-13:30";
+                             break;
+                    case 6:  fila[0] = "13:30-14:30";
+                             break;
+                    case 7:  fila[0] = "14:30-15:30";
+                             break;
+                    case 8:  fila[0] = "15:30-16:30";
+                             break;
+                    case 9:  fila[0] = "16:30-17:30";
+                             break;
+                    case 10: fila[0] = "17:30-18:30";
+                             break;
+                    case 11: fila[0] = "18:30-19:30";
+                             break;
                 }
+                int index=1;
+                for (int y=0; y < aula1Matriz[x].length; y++) {
+                    
+                    Clase c=d.getClase(aula1Matriz[x][y]);
+                    if(c!=null){
+                        fila[index] = c.getMateria().getNombre()+" Par:"+c.getMateria().getParalelo();
+                    }
+                    index++;
+                }
+                model.addRow(fila); 
+
+           }
             table.setModel(model);
             tablas[tableIndex] = table;
             tableIndex++;
-            //System.out.println(gene);
             
             for (int x=0; x < 12; x++) {
                 for (int y=0; y < 5; y++) {
